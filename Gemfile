@@ -1,11 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-<<<<<<< HEAD
 gem "rails", "~> 8.0.2"
-=======
-gem "rails", "~> 7.2.2", ">= 7.2.2.1"
->>>>>>> Initial commit
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use postgresql as the database for Active Record
@@ -59,8 +55,20 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-<<<<<<< HEAD
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
-=======
->>>>>>> Initial commit
+
+gem "rolify", "~> 5.2"
+
+gem "kaminari", "~> 1.2", ">= 1.2.2"
+
+gem "ransack", "~> 4.3", ">= 4.3.0"
+
+gem "caxlsx", "~> 3.1", ">= 3.1.0"
+gem "axlsx_rails", "~> 0.6.0", ">= 0.6.1"
+
+gem "jquery-rails"
+gem "cocoon", "~> 1.2", ">= 1.2.15"
+
+gem "wicked_pdf", "~> 2.8.2"
+gem "wkhtmltopdf-binary", "~> 0.12.6"

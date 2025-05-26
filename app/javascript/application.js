@@ -1,9 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
-<<<<<<< HEAD
 import "main"
 import "bootstrap"
-
-=======
->>>>>>> Initial commit
+import "cocoon-js";
+import "jquery";
