@@ -1,0 +1,4 @@
+class CasesController < ApplicationController
+ 
+end
+
