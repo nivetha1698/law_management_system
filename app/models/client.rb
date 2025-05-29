@@ -1,0 +1,17 @@
+class Client < User
+  default_scope {
+    joins(:roles).where(roles: { name: ['client'] })
+  }
+
+#-------------------------------------Associations---------------------------------------------------------
+  has_many :cases
+
+#-----------------------------------------Methods----------------------------------------------------------
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name email phone created_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+end

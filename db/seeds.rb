@@ -9,9 +9,9 @@
 #   end
 
 
-Role.find_or_create_by(name: "Admin")
-Role.find_or_create_by(name: "Lawyer")
-Role.find_or_create_by(name: "Client")
+Role.find_or_create_by(name: "admin")
+Role.find_or_create_by(name: "lawyer")
+Role.find_or_create_by(name: "client")
 
-Category.find_or_create_by(name: "Criminal")
-Category.find_or_create_by(name: "Civil")
+Category.find_or_create_by(name: "criminal")
+Category.find_or_create_by(name: "civil")

@@ -1,0 +1,41 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Category</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lawyers.each do |lawyer| %>
+     <tr style="cursor: pointer;" onclick="window.location='<%= lawyer_path(lawyer) %>'">
+       <td><%= lawyer&.name %></td>
+       <td><%= lawyer&.email %></td>
+       <td><%= lawyer&.category&.name %></td>
+       <td><%= lawyer&.phone %></td>
+       <td><%= lawyer&.created_at.strftime('%Y-%m-%d') %></td>
+       <td onclick="event.stopPropagation();" class="position-relative">
+        <div class="dropdown">
+         <button class="btn btn-link text-dark p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-three-dots"></i>
+         </button>
+         <ul class="dropdown-menu">
+          <li>
+           <%= button_to lawyer_path(lawyer), method: :delete, data: { confirm: "Are you sure?" }, form: { style: "display:inline;" }, class: "dropdown-item text-black px-3 py-1 text-center", style: "font-size: 0.85rem; width: 100px;" do %>
+             Delete
+           <% end %>
+          </li>
+         </ul>
+        </div>
+       </td>
+
+     </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="mt-3 d-flex justify-content-end">
+  <%= paginate @lawyers %>
+</div>
