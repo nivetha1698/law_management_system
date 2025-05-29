@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+  
+  rolify
+  ADMIN_ROLES = %w[admin client lawyer]
   #---------------------------------------Associations------------------------------------------------
   has_many :assigned_tasks, class_name: "Task", foreign_key: "assigned_to"
   has_many :issued_invoices, class_name: "Invoice", foreign_key: "issued_to_id"
@@ -10,4 +12,6 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :audit_logs
   belongs_to :team, optional: true
+  belongs_to :category, optional: true
+
 end

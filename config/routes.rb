@@ -7,7 +7,14 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+ 
+  resources :dashboards, only: [:index]
   resources :users
   resources :cases
-  root "cases#index"
+  resources :clients
+  resources :lawyers
+  root "dashboards#index"
+
+
+
 end

@@ -57,3 +57,11 @@ group :test do
 end
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
+
+gem 'rolify', '~> 5.2'
+
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
+
+gem 'ransack', '~> 4.3', '>= 4.3.0'
+
+

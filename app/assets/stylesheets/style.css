@@ -1467,5 +1467,13 @@ table.datatable-table:focus tr.datatable-cursor > td:first-child {
 
 table.datatable-table:focus {
 	outline: solid 1px black;
-    outline-offset: -1px;
+  outline-offset: -1px;
+}
+
+.table-hover tbody tr {
+  height: 80px;
+}
+
+.table-hover tbody td {
+  vertical-align: middle;
 }

@@ -16,6 +16,7 @@
 
   <body>
     <% if user_signed_in? %>
+      <%= render "shared/header" %>
       <%= render "shared/sidebar" %>
     <% end %>
     <%= yield %>
