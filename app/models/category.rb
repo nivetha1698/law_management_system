@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-    has_many :users
-    has_many :cases
+   has_many :lawyers, class_name: 'Lawyer', foreign_key: 'category_id'
+   has_many :cases
 end

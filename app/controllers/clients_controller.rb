@@ -1,9 +1,24 @@
 class ClientsController < ApplicationController
+  require 'csv'
+
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   def index
     @q = Client.ransack(params[:q])
-    @clients = @q.result(distinct: true).order(created_at: :desc).page(params[:page])      
+    @clients = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
+    respond_to do |format|
+      format.html
+      format.csv do
+        attrs = export_attributes
+        service = ExportFormatService.new(@clients, attrs[:attributes], attrs[:title])
+        send_data service.generate_csv, filename: "clients-#{Date.today}.csv"
+      end
+      format.xlsx do
+        attrs = export_attributes
+        service = ExportFormatService.new(@clients, attrs[:attributes], attrs[:title])
+        send_data service.generate_xlsx, filename: "clients-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      end
+    end      
   end
 
   def new
@@ -13,11 +28,9 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      p @client
       @client.add_role("client")  
       redirect_to clients_path, notice: 'Client was successfully created.'
     else
-      p @client
       render :new
     end
   end
@@ -49,6 +62,13 @@ class ClientsController < ApplicationController
 
   def set_client
     @client = Client.find(params[:id])
+  end
+
+  def export_attributes
+   {
+    attributes: ['name', 'email', 'phone', 'created_at'],
+    title: ['Clients']
+   }
   end
 
 

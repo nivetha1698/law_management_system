@@ -1471,9 +1471,26 @@ table.datatable-table:focus {
 }
 
 .table-hover tbody tr {
-  height: 80px;
+  height: 60px;
 }
 
 .table-hover tbody td {
   vertical-align: middle;
 }
+
+.bg-login {
+  background-image: image-url('background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; 
+}
+
+.nav-tabs .nav-item {
+  flex: 1;        
+  text-align: center; 
+}
+.nav-tabs .nav-link {
+  width: 100%;     
+}
+

@@ -7,13 +7,6 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
   </div>
 
-  <div class="search-bar">
-    <form class="search-form d-flex align-items-center" method="POST" action="#">
-      <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-    </form>
-  </div>
-
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
       <li class="nav-item d-block d-lg-none">
@@ -23,17 +16,26 @@
       </li>
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="#" alt="Profile" class="rounded-circle">
+          <%= image_tag current_user.profile_image, alt: "Profile", class: "rounded-circle" %>
         </a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
-            <h6>Username</h6>
+            <h6><%= current_user.name %></h6>
           </li>
           <li>
             <hr class="dropdown-divider">
           </li>
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="#">
+           <%= link_to profile_path, class: "dropdown-item d-flex align-items-center" do %>
+             <i class="bi bi-person"></i>
+             <span>My Profile</span>
+           <% end %>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="/users/sign_out" data-turbo-method="delete">
               <i class="bi bi-box-arrow-right"></i>
               <span>Sign Out</span>
             </a>

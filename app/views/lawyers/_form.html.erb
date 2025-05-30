@@ -4,23 +4,27 @@
         <%= form_with model: @lawyer, local: true, html: { class: "row g-3" } do |f| %>
             <div class="col-md-6 mb-3">
               <%= f.label :name, class: "form-label fw-bold" %>
-              <%= f.text_field :name, class: "form-control", disabled: action_name == "show" %>
+              <%= f.text_field :name, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :email, class: "form-label fw-bold" %>
-              <%= f.email_field :email, class: "form-control", disabled: action_name == "show" %>
+              <%= f.email_field :email, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :phone, class: "form-label fw-bold" %>
-              <%= f.text_field :phone, class: "form-control", disabled: action_name == "show" %>
+              <%= f.text_field :phone, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :password, class: "form-label fw-bold" %>
-              <%= f.password_field :password, class: "form-control", disabled: action_name == "show" %>
+              <%= f.password_field :password, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
             <div class="col-12 mb-3">
               <%= f.label :address, class: "form-label fw-bold" %>
-              <%= f.text_field :address, class: "form-control", disabled: action_name == "show" %>
+              <%= f.text_field :address, class: "form-control", disabled: action_name == "show", required: true %>
+            </div>
+            <div class="col-md-4 mb-3">
+              <%= f.label :category, class: "form-label fw-bold" %>
+              <%= f.select :category_id, Category.all.collect { |c| [c.name, c.id] }, { prompt: "Select a category" }, class: "form-select", disabled: action_name == "show" %>
             </div>
             <div class="col-md-4 mb-3">
               <%= f.label :city, class: "form-label fw-bold" %>
