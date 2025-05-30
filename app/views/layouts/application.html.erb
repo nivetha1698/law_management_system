@@ -10,12 +10,12 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "style", media: "all" %>
-
+    
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <% if user_signed_in? %>
+    <% if current_user.present? %>
       <%= render "shared/header" %>
       <%= render "shared/sidebar" %>
     <% end %>

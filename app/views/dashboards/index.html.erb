@@ -1,86 +1,76 @@
 <main id="main" class="main">
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-xxl-4 col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Clients</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-badge"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><%= @clients_count %></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-   
+          <div class="col-xxl-4 col-md-4">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Team Members</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><%= @lawyers_count %></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <section class="section dashboard">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="row">
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-                <div class="card-body">
-                  <h5 class="card-title">Clients</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-cart"></i>
-                       </div>
-                    <div class="ps-3">
-                      <h6>145</h6>
-
+          <div class="col-xxl-4 col-md-4">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Judges</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-gear"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><%= @judges_count %></h6>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card revenue-card">
-
-               
-
-                <div class="card-body">
-                  <h5 class="card-title">Lawyers</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$3,264</h6>
-
-                    </div>
+        <div class="row mt-1">
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card customers-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><%= @users_count %></h6>
                   </div>
                 </div>
-              
-
               </div>
             </div>
-
-            
-            <!-- Customers Card -->
-            <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card">
-
-                
-
-                <div class="card-body">
-                  <h5 class="card-title">Customers</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1244</h6>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-        </div>
-      </div>
-
-       
-
-          
-
+          </div>
         </div>
 
       </div>
-    </section>
-
-  </main>
+    </div>
+  </section>
+</main>

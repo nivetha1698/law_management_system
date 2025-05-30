@@ -2,8 +2,25 @@ class LawyersController < ApplicationController
   before_action :set_lawyer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @q = Lawyer.ransack(params[:q])
-    @lawyers = @q.result(distinct: true).order(created_at: :desc).page(params[:page])      
+    @q = Lawyer.includes(:category).ransack(params[:q])
+    @lawyers = @q.result(distinct: true)
+
+    @lawyers = @lawyers.where(category_id: params[:category]) if params[:category].present?
+    @lawyers = @lawyers.order(created_at: :desc).page(params[:page]).per(5)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        attrs = export_attributes
+        service = ExportFormatService.new(@lawyers, attrs[:attributes], attrs[:title])
+        send_data service.generate_csv, filename: "lawyers-#{Date.today}.csv"
+      end
+      format.xlsx do
+        attrs = export_attributes
+        service = ExportFormatService.new(@lawyers, attrs[:attributes], attrs[:title])
+        send_data service.generate_xlsx, filename: "lawyers-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      end
+    end      
   end
 
   def show;end
@@ -46,6 +63,13 @@ class LawyersController < ApplicationController
 
   def set_lawyer
     @lawyer = Lawyer.find(params[:id])
+  end
+
+  def export_attributes
+   {
+    attributes: ['name', 'email', 'phone', 'created_at'],
+    title: ['Clients']
+   }
   end
 
 

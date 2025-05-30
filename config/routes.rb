@@ -9,12 +9,22 @@ Rails.application.routes.draw do
 
  
   resources :dashboards, only: [:index]
-  resources :users
+  resources :users do
+    member do
+      patch :upload
+      delete :remove
+    end
+  end
+
   resources :cases
   resources :clients
   resources :lawyers
+  resources :judges
+  resources :tasks
+  resources :roles
+ 
+
+  get '/profile', to: 'users#show_current', as: :profile
+
   root "dashboards#index"
-
-
-
 end

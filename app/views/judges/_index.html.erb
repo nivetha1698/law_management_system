@@ -1,0 +1,37 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Court Name</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @judges.each do |judge| %>
+     <tr style="cursor: pointer;" onclick="window.location='<%= judge_path(judge) %>'">
+       <td><%= judge&.name %></td>
+       <td><%= judge&.court_name %></td>
+       <td><%= judge&.created_at.strftime('%Y-%m-%d') %></td>
+       <td onclick="event.stopPropagation();" class="position-relative">
+        <div class="dropdown">
+         <button class="btn btn-link text-dark p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-three-dots"></i>
+         </button>
+         <ul class="dropdown-menu">
+          <li>
+           <%= button_to judge_path(judge), method: :delete, data: { confirm: "Are you sure?" }, form: { style: "display:inline;" }, class: "dropdown-item text-black px-3 py-1 text-center", style: "font-size: 0.85rem; width: 100px;" do %>
+             Delete
+           <% end %>
+          </li>
+         </ul>
+        </div>
+       </td>
+
+     </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="mt-3 d-flex justify-content-end">
+  <%= paginate @judges %>
+</div>
