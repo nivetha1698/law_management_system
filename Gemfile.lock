@@ -245,18 +245,11 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-<<<<<<< HEAD
-=======
-    rake (13.2.1)
->>>>>>> added pagination & search filter
     ransack (4.3.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
-<<<<<<< HEAD
     rake (13.3.0)
-=======
->>>>>>> added pagination & search filter
     rdoc (6.14.0)
       erb
       psych (>= 4.0.0)
