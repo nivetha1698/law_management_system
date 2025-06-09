@@ -58,7 +58,7 @@ end
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
 
-gem "rolify", "~> 5.2"
+gem "rolify", "~> 6.0"
 
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 
