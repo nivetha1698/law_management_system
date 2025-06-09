@@ -1471,7 +1471,7 @@ table.datatable-table:focus {
 }
 
 .table-hover tbody tr {
-  height: 60px;
+  height: 80px;
 }
 
 .table-hover tbody td {

@@ -1,0 +1,68 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+        <%= form_with model: @court_case, local: true, html: { class: "row g-3" } do |f| %>
+            <div class="col-md-6 mb-3">
+              <%= f.label :case_number, class: "form-label fw-bold" %>
+              <%= f.text_field :case_number, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :title, class: "form-label fw-bold" %>
+              <%= f.text_field :title, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :description, class: "form-label fw-bold" %>
+              <%= f.text_field :description, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :client, class: "form-label fw-bold" %>
+              <%= f.collection_select :client_id, @clients, :id, :name, { prompt: "Select Client" }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :court_no, class: "form-label fw-bold" %>
+              <%= f.text_field :court_no, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :category, class: "form-label fw-bold" %>
+              <%= f.select :category_id, Category.all.collect { |c| [c.name, c.id] }, { prompt: "Select a category" }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :judge, class: "form-label fw-bold" %>
+              <%= f.collection_select :judge_id, @judges, :id, :name, { prompt: "Select Judge" }, class: "form-select" %>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :status, class: "form-label fw-bold" %>
+              <%= f.select :status, ["open", "closed", "pending"], { prompt: "Select Status" }, { class: "form-select" } %>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <%= f.label :first_hearing_date, class: "form-label fw-bold" %>
+              <%= f.date_field :first_hearing_date, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :nex_hearing_date, class: "form-label fw-bold" %>
+              <%= f.date_field :next_hearing_date, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :priority, class: "form-label fw-bold" %>
+              <%= f.select :priority, options_for_select(["Low", "Normal", "High", "Urgent", "Critical", "Immediate"], @court_case.priority), {}, class: "form-select" %>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :workflow_status, class: "form-label fw-bold" %>
+              <%= f.select :workflow_status, ["intake", "investigation", "trial", "closed"], { prompt: "Select Workflow Status" }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :lawyers, "Lawyers", class: "form-label fw-bold" %>
+              <%= f.select :lawyer_ids, [["Select Lawyers", ""]] + Lawyer.all.map { |l| [l.name, l.id] }, {}, { multiple: true, class: "form-select" } %>
+            </div>
+            <% unless action_name == "show" %>
+             <div class="text-center">
+              <%= f.submit "Submit", class: "btn btn-primary" %>
+             </div>
+            <% end %>
+        <% end %>
+    </div>
+  </div>
+</section>

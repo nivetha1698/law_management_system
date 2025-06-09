@@ -1,0 +1,80 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+        <%= form_with model: @appointment, local: true, html: { class: "row g-3" } do |f| %>
+            <div class="col-md-6 mb-3">
+              <%= f.label :client_id, "Client", class: "form-label fw-bold" %>
+              <%= f.collection_select :client_id, @clients, :id, :name, { prompt: "Select Client" }, class: "form-select", id: "client_select", disabled: action_name == "show"  %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="court_case_select" class="form-label fw-bold">Case</label>
+              <select id="court_case_select" name="appointment[case_id]" class="form-select" <%= 'disabled' if action_name == 'show' %>>
+                <option value="">Select a case</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="lawyer_select" class="form-label fw-bold">Lawyer</label>
+              <select id="lawyer_select" name="appointment[lawyer_id]" class="form-select" <%= 'disabled' if action_name == 'show' %>>
+                <option value="">Select a lawyer</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :date, class: "form-label fw-bold" %>
+              <%= f.date_field :date, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :time, class: "form-label fw-bold" %>
+              <%= f.time_field :time, class: "form-control", disabled: action_name == "show" %>
+            </div>
+           
+            <div class="text-center">
+              <%= f.submit "Submit", class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const clientSelect = document.getElementById("client_select");
+    const caseSelect = document.getElementById("court_case_select");
+    const lawyerSelect = document.getElementById("lawyer_select");
+
+    if (!clientSelect) return;
+
+    clientSelect.addEventListener("change", () => {
+      const clientId = clientSelect.value;
+
+      fetch(`/clients/${clientId}/cases`)
+        .then(response => response.json())
+        .then(cases => {
+          caseSelect.innerHTML = '<option value="">Select a case</option>';
+          lawyerSelect.innerHTML = '<option value="">Select a lawyer</option>';
+          cases.forEach(c => {
+            const opt = document.createElement("option");
+            opt.value = c.id;
+            opt.textContent = c.title;
+            caseSelect.appendChild(opt);
+          });
+        });
+    });
+
+    caseSelect.addEventListener("change", () => {
+      const caseId = caseSelect.value;
+
+      fetch(`/court_cases/${caseId}/lawyers`)
+        .then(response => response.json())
+        .then(lawyers => {
+          lawyerSelect.innerHTML = '<option value="">Select a lawyer</option>';
+          lawyers.forEach(l => {
+            const opt = document.createElement("option");
+            opt.value = l.id;
+            opt.textContent = l.name;
+            lawyerSelect.appendChild(opt);
+          });
+        });
+    });
+  });
+</script>
+

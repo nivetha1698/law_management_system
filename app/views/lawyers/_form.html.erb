@@ -11,6 +11,10 @@
               <%= f.email_field :email, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
             <div class="col-md-6 mb-3">
+              <%= f.label :gender, class: "form-label fw-bold" %>
+              <%= f.select :gender, options_for_select([['Male', 'male'], ['Female', 'female'], ['Other', 'other']], f.object.gender), { prompt: "Select Gender" }, class: "form-select", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-6 mb-3">
               <%= f.label :phone, class: "form-label fw-bold" %>
               <%= f.text_field :phone, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
@@ -18,7 +22,7 @@
               <%= f.label :password, class: "form-label fw-bold" %>
               <%= f.password_field :password, class: "form-control", disabled: action_name == "show", required: true %>
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-md-6 mb-3">
               <%= f.label :address, class: "form-label fw-bold" %>
               <%= f.text_field :address, class: "form-control", disabled: action_name == "show", required: true %>
             </div>

@@ -71,5 +71,13 @@ gem "axlsx_rails", "~> 0.6.0", ">= 0.6.1"
 gem "jquery-rails"
 gem "cocoon", "~> 1.2", ">= 1.2.15"
 
+<<<<<<< HEAD
 gem "wicked_pdf", "~> 2.8.2"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
+=======
+gem 'jquery-rails'
+gem 'cocoon', '~> 1.2', '>= 1.2.15'
+
+gem 'wicked_pdf', '~> 2.8.2'
+gem 'wkhtmltopdf-binary', '~> 0.12.6'
+>>>>>>> added tasks & invoices

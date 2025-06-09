@@ -54,10 +54,16 @@ class ClientsController < ApplicationController
     redirect_to clients_path, notice: 'Client was successfully deleted.'
   end
 
+  def cases
+    client = Client.find(params[:id])
+    cases = client.court_cases.select(:id, :title)
+    render json: cases
+  end
+
   private
 
   def client_params
-     params.require(:client).permit(:name, :email, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :created_at, :updated_at)
+     params.require(:client).permit(:name, :email, :gender, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :created_at, :updated_at)
   end
 
   def set_client

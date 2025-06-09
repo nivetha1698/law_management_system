@@ -1,0 +1,48 @@
+<main id="main" class="main">
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">Services</h5>
+         <div class="d-flex justify-content-end mb-4">
+           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newServiceModal">
+             <i class="bi bi-plus"></i> Service
+           </button>
+         </div>
+         <%= render "services/index" %>
+      </div> 
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="newServiceModal" tabindex="-1" aria-labelledby="newServiceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="newServiceModalLabel">New Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <%= form_with model: @service, local: true, html: { class: "row g-3" } do |f| %>
+          <div class="col-md-6 mb-3">
+            <%= f.label :name, class: "form-label fw-bold" %>
+            <%= f.text_field :name, required: true, class: "form-control" %>
+          </div>
+          <div class="col-md-6 mb-3">
+            <%= f.label :description, class: "form-label fw-bold" %>
+            <%= f.text_field :description, class: "form-control" %>
+          </div>
+          <div class="col-md-6 mb-3">
+            <%= f.label :amount, class: "form-label fw-bold" %>
+            <%= f.number_field :amount, step: "0.01", min: 0, required: true, class: "form-control" %>
+          </div>
+          <div class="text-center">
+            <%= f.submit "Submit", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+      
+    </div>
+  </div>
+</div>

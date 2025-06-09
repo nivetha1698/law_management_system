@@ -1,0 +1,57 @@
+<div class="nested-fields">
+ <div class="nested-fields">
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <%= f.label :item, class: "form-label fw-bold" %>
+      <%= f.text_field :item,  class: "form-control", disabled: action_name == "show" %>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.label :quantity, class: "form-label fw-bold" %>
+      <%= f.number_field :quantity, class: "form-control", disabled: action_name == "show" %>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.label :service, 'Service', class: "form-label fw-bold" %>
+      <%= f.collection_select :service_id, @services, :id, :name, { prompt: "Select Service" }, { class: "form-select", disabled: (action_name == "show") } %>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.label :unit_price, class: "form-label fw-bold" %>
+      <%= f.number_field :unit_price, class: "form-control", disabled: action_name == "show" %>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.label :cgst, class: "form-label fw-bold" %>
+      <%= f.number_field :cgst, class: "form-control", disabled: action_name == "show" %>
+    </div>
+    <div class="col-md-4 mb-3">
+     <%= f.label :sgst, class: "form-label fw-bold" %>
+     <%= f.number_field :sgst, class: "form-control", disabled: action_name == "show" %>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.label :total, class: "form-label fw-bold" %>
+      <%= f.number_field :total, class: "form-control", disabled: action_name == "show" %>
+    </div>
+    <div class="col">
+      <%= link_to_remove_association "Remove", f, class: "btn btn-danger" %>
+    </div>
+  </div>
+  <hr>
+ </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".service-select").forEach(select => {
+    select.addEventListener("change", function() {
+      let serviceId = this.value;
+      if (serviceId) {
+        fetch(`/services/${serviceId}/price`)
+          .then(response => response.json())
+          .then(data => {
+            this.closest(".row").querySelector(".unit-price").value = data.amount;
+          })
+          .catch(error => console.error("Error fetching price:", error));
+      }
+    });
+  });
+});
+
+</script>

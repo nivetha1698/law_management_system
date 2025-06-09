@@ -4,8 +4,9 @@ class Lawyer < User
   }
 
 #-------------------------------------------------Associations-------------------------------------------
-  has_many :cases
   has_many :notes
+  has_many :court_cases, through: :case_lawyers
+  has_many :case_lawyers, dependent: :destroy
   belongs_to :category
 #--------------------------------------------------Methods----------------------------------------------
   def self.ransackable_attributes(auth_object = nil)

@@ -1,0 +1,48 @@
+<main id="main" class="main">
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+
+        <h5 class="card-title fw-bold mb-4 d-flex justify-content-between align-items-center">
+          <%= @task&.title %>
+          <%= link_to edit_task_path(@task), class: "text-primary" do %>
+            <i class="bi bi-pencil-square fs-5"></i>
+          <% end %>
+        </h5>
+
+        <div class="row mb-3">
+          <div class="col-md-3 fw-bold text-muted">Task Name:</div>
+          <div class="col-md-9"><%= @task&.title %></div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3 fw-bold text-muted">Description:</div>
+          <div class="col-md-9"><%= @task&.description %></div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3 fw-bold text-muted">Case:</div>
+          <div class="col-md-9"><%= @task&.court_case&.title %></div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3 fw-bold text-muted">Assigned To:</div>
+          <div class="col-md-9"><%= @task&.assignee&.name || "No assignee" %></div>
+        </div>
+
+       <div class="row mb-3">
+          <div class="col-md-3 fw-bold text-muted">Due Date:</div>
+          <div class="col-md-9"><%= @task&.due_date&.strftime("%d %B %Y") %></div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3 fw-bold text-muted">Status:</div>
+          <div class="col-md-9"><%= @task&.status.titleize %></div>
+        </div>
+
+       
+
+      </div>
+    </div>
+  </section>
+</main>

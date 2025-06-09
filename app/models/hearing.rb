@@ -1,3 +1,3 @@
 class Hearing < ApplicationRecord
-    belongs_to :case
+    belongs_to :court_case
 end

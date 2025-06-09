@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-
-  # get "up" => "rails/health#show", as: :rails_health_check
-
-  # # Render dynamic PWA files from app/views/pwa/*
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
  
   resources :dashboards, only: [:index]
   resources :users do
@@ -16,15 +9,31 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :cases
-  resources :clients
+  resources :clients do
+    member do
+      get :cases
+    end
+  end
+
+  resources :court_cases do
+    member do
+      get :lawyers
+    end 
+  end
+  
   resources :lawyers
   resources :judges
   resources :tasks
   resources :roles
- 
+  resources :categories
+  resources :appointments
+  resources :services
+  resources :invoices do
+    get :get_issued_user, on: :collection
+  end
 
   get '/profile', to: 'users#show_current', as: :profile
-
+  get "invoices/new_item_field", to: "invoices#new_item_field"
+  get '/services/:id/price', to: 'services#price'
   root "dashboards#index"
 end
