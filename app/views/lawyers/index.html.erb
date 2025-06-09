@@ -9,7 +9,6 @@
          <div class="d-flex justify-content-between mb-4">
           <%= search_form_for @q, url: lawyers_path, method: :get, class: "d-flex", html: { id: "filter-form" } do |f| %>
             <%= f.search_field :name_or_email_or_phone_cont, placeholder: "Search...", class: "form-control me-2" %>
-            <%= f.select :category_id_eq, options_from_collection_for_select(Category.all, :id, :name), { include_blank: "Category" }, class: "form-select me-2 filter-dropdown", id: "category-data" %>
           <% end %>
           <div class="btn-group">
            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
@@ -24,11 +23,3 @@
     </div>
   </section>
 </main>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('.filter-dropdown').change(function() {
-      $('#filter-form').submit();
-    });
-  });
-</script>

@@ -1,0 +1,35 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+        <%= form_with model: @task, local: true, html: { class: "row g-3" } do |f| %>
+            <div class="col-md-6 mb-3">
+              <%= f.label :task_name, class: "form-label fw-bold" %>
+              <%= f.text_field :title, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :details, class: "form-label fw-bold" %>
+              <%= f.text_field :description, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :case, class: "form-label fw-bold" %>
+              <%= f.collection_select :case_id, @court_cases, :id, :title, { prompt: "Select Case" }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :status, class: "form-label fw-bold" %>
+              <%= f.select :status, [["Pending", "pending"], ["In Progress", "in_progress"], ["Completed", "completed"]], { prompt: "Select Status" }, { class: "form-select" }%>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :due_date, class: "form-label fw-bold" %>
+              <%= f.date_field :due_date, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :assigned_to, "Assignee", class: "form-label fw-bold" %>
+              <%= f.collection_select :assigned_to, @users, :id, :name, { prompt: "Select User" }, class: "form-select" %>
+            </div>
+            <div class="text-center">
+              <%= f.submit "Submit", class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+  </div>
+</section>

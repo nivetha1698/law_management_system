@@ -34,6 +34,14 @@
       </div>
     </div>
 
+     <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Gender</label>
+      <div class="col-md-8 col-lg-9">
+        <%= f.select :gender, options_for_select([['Male', 'male'], ['Female', 'female'], ['Other', 'other']], f.object.gender), {}, class: "form-control", id: "Gender" %>
+      </div>
+    </div>
+
+
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Country</label>
       <div class="col-md-8 col-lg-9">

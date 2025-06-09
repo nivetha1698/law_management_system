@@ -1,0 +1,15 @@
+<main id="main" class="main">
+  <section class="section">
+    <div class="card">
+     <div class="card-body">
+        <h5 class="card-title fw-bold mb-5 d-flex justify-content-between align-items-center">
+         Edit Service
+         <%= link_to services_path, class: "text-secondary" do %>
+            <i class="bi bi-x-circle fs-2"></i>
+         <% end %>
+        </h5>
+        <%= render "services/form" %>
+      </div>
+    </div>
+  </section>
+</main>

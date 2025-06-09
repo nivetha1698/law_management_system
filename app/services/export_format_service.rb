@@ -38,11 +38,16 @@ class ExportFormatService
   private
 
   def formatted_value(record, attr)
-    value = record.public_send(attr)
-    if value.is_a?(Time) || value.is_a?(Date)
-      value.strftime('%Y-%m-%d')
+    case attr.to_s
+    when 'client_name'
+      record.client&.name || 'No data'
     else
-      value
+      value = record.public_send(attr)
+      if value.is_a?(Time) || value.is_a?(Date)
+        value.strftime('%Y-%m-%d')
+      else
+        value
+      end
     end
   end
 end

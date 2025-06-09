@@ -1,5 +1,4 @@
 class ClientsController < ApplicationController
-<<<<<<< HEAD
   require 'csv'
 
   before_action :set_client, only: [:show, :edit, :update, :destroy]
@@ -55,10 +54,16 @@ class ClientsController < ApplicationController
     redirect_to clients_path, notice: 'Client was successfully deleted.'
   end
 
+  def cases
+    client = Client.find(params[:id])
+    cases = client.court_cases.select(:id, :title)
+    render json: cases
+  end
+
   private
 
   def client_params
-     params.require(:client).permit(:name, :email, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :created_at, :updated_at)
+     params.require(:client).permit(:name, :email, :gender, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :created_at, :updated_at)
   end
 
   def set_client
@@ -71,9 +76,4 @@ class ClientsController < ApplicationController
     title: ['Clients']
    }
   end
-
-
-=======
- 
->>>>>>> b77c2ce5a54e7ce772af85b1ee8c155c3732dc29
 end

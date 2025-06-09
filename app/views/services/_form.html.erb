@@ -1,0 +1,23 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+        <%= form_with model: @service, local: true, html: { class: "row g-3" } do |f| %>
+            <div class="col-md-6 mb-3">
+              <%= f.label :name, class: "form-label fw-bold" %>
+              <%= f.text_field :name, required: true, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :description, class: "form-label fw-bold" %>
+              <%= f.text_field :description, class: "form-control" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :amount, class: "form-label fw-bold" %>
+              <%= f.number_field :amount, step: "0.01", min: 0, required: true, class: "form-control" %>
+            </div>
+            <div class="text-center">
+              <%= f.submit "Submit", class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+  </div>
+</section>

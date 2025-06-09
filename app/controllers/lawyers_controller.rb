@@ -32,9 +32,17 @@ class LawyersController < ApplicationController
   def create
     @lawyer = Lawyer.new(lawyer_params)
     if @lawyer.save
+<<<<<<< HEAD
+      p @lawyer.errors.full_messages
       @lawyer.add_role("lawyer")  
       redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
     else
+      p @lawyer.errors.full_messages
+=======
+      @lawyer.add_role("lawyer")  
+      redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
+    else
+>>>>>>> c84184dca469c70b0565de4ab4aea205f5ab8ed6
       render :new
     end
   end
@@ -58,7 +66,7 @@ class LawyersController < ApplicationController
   private
 
   def lawyer_params
-    params.require(:lawyer).permit(:name, :email, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :team_id, :created_at, :updated_at)
+    params.require(:lawyer).permit(:name, :email, :gender, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :team_id, :created_at, :updated_at)
   end
 
   def set_lawyer

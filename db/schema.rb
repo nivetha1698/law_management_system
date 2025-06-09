@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_04_110058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "appointments", force: :cascade do |t|
+    t.date "date"
+    t.time "time"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "case_id"
+    t.integer "lawyer_id"
+    t.index ["client_id"], name: "index_appointments_on_client_id"
   end
 
   create_table "audit_logs", force: :cascade do |t|
@@ -81,8 +92,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "case_number"
+    t.date "first_hearing_date"
+    t.date "next_hearing_date"
+    t.string "court_no"
+    t.bigint "judge_id"
     t.index ["category_id"], name: "index_cases_on_category_id"
     t.index ["client_id"], name: "index_cases_on_client_id"
+    t.index ["judge_id"], name: "index_cases_on_judge_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -147,6 +164,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
     t.index ["case_id"], name: "index_hearings_on_case_id"
   end
 
+  create_table "invoice_items", force: :cascade do |t|
+    t.string "item"
+    t.string "quantity"
+    t.string "unit_price"
+    t.string "cgst"
+    t.string "sgst"
+    t.string "total"
+    t.bigint "service_id"
+    t.bigint "invoice_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+    t.index ["service_id"], name: "index_invoice_items_on_service_id"
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.bigint "case_id"
     t.bigint "issued_to_id"
@@ -156,6 +188,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
     t.date "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "invoice_number"
     t.index ["case_id"], name: "index_invoices_on_case_id"
     t.index ["issued_to_id"], name: "index_invoices_on_issued_to_id"
   end
@@ -166,6 +199,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "appointment_id"
+    t.index ["appointment_id"], name: "index_notes_on_appointment_id"
     t.index ["case_id"], name: "index_notes_on_case_id"
     t.index ["lawyer_id"], name: "index_notes_on_lawyer_id"
   end
@@ -196,6 +231,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
     t.string "resource_type"
     t.integer "resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -273,6 +316,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "appointments", "users", column: "client_id"
   add_foreign_key "audit_logs", "users"
   add_foreign_key "case_lawyers", "cases"
   add_foreign_key "case_lawyers", "users", column: "lawyer_id"
@@ -280,6 +324,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
   add_foreign_key "case_tags", "tags"
   add_foreign_key "cases", "categories"
   add_foreign_key "cases", "users", column: "client_id"
+  add_foreign_key "cases", "users", column: "judge_id"
   add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklists", "cases"
   add_foreign_key "document_versions", "documents"
@@ -287,8 +332,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_120639) do
   add_foreign_key "documents", "cases"
   add_foreign_key "documents", "users", column: "uploaded_by_id"
   add_foreign_key "hearings", "cases"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoice_items", "services"
   add_foreign_key "invoices", "cases"
   add_foreign_key "invoices", "users", column: "issued_to_id"
+  add_foreign_key "notes", "appointments"
   add_foreign_key "notes", "cases"
   add_foreign_key "notes", "users", column: "lawyer_id"
   add_foreign_key "notifications", "users"

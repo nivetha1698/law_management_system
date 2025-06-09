@@ -13,11 +13,9 @@ class JudgesController < ApplicationController
   def create
     @judge = Judge.new(judge_params)
     if @judge.save
-      p @judge
       @judge.add_role("judge")  
       redirect_to judges_path, notice: 'Judge was successfully created.'
     else
-      p @judge
       render :new
     end
   end

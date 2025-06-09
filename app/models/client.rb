@@ -4,7 +4,7 @@ class Client < User
   }
 
 #-------------------------------------Associations---------------------------------------------------------
-  has_many :cases
+  has_many :court_cases
 
 #-----------------------------------------Methods----------------------------------------------------------
   def self.ransackable_attributes(auth_object = nil)

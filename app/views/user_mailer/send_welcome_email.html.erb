@@ -1,0 +1,12 @@
+<h3>Welcome to Law Management System, <%= @user.name %>!</h3>
+
+<p>Dear <%= @user.name %>,</p>
+
+<p>Your account has been created successfully as a <%= @user.class.name.capitalize %>.</p>
+
+<p>You can now log in using your email: <%= @user.email %>.</p>
+
+<p>Please visit <a href="<%= root_url %>">our website</a> to get started.</p>
+
+<p>Best regards,<br>
+Law Management Team</p>

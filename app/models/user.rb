@@ -19,4 +19,15 @@ class User < ApplicationRecord
   validates :name, :email, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
 
+  #--------------------------------------Callbacks-----------------------------------------------------
+
+  after_create_commit :send_welcome_email
+
+  #------------------------------------Methods------------------------------------------------------
+
+  def send_welcome_email
+    UserMailer.send_welcome_email(self).deliver_now
+  end
+
+
 end
