@@ -60,6 +60,7 @@ end
 gem 'devise', '~> 4.9', '>= 4.9.3'
 
 gem "rolify", "~> 5.2"
+<<<<<<< HEAD
 
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 
@@ -81,3 +82,18 @@ gem 'cocoon', '~> 1.2', '>= 1.2.15'
 gem 'wicked_pdf', '~> 2.8.2'
 gem 'wkhtmltopdf-binary', '~> 0.12.6'
 >>>>>>> added tasks & invoices
+=======
+
+gem "kaminari", "~> 1.2", ">= 1.2.2"
+
+gem "ransack", "~> 4.3", ">= 4.3.0"
+
+gem "caxlsx", "~> 3.1", ">= 3.1.0"
+gem "axlsx_rails", "~> 0.6.0", ">= 0.6.1"
+
+gem "jquery-rails"
+gem "cocoon", "~> 1.2", ">= 1.2.15"
+
+gem "wicked_pdf", "~> 2.8.2"
+gem "wkhtmltopdf-binary", "~> 0.12.6"
+>>>>>>> added small fix
