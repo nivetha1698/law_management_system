@@ -76,6 +76,4 @@ class ClientsController < ApplicationController
     title: ['Clients']
    }
   end
-
-
 end

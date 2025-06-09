@@ -32,11 +32,17 @@ class LawyersController < ApplicationController
   def create
     @lawyer = Lawyer.new(lawyer_params)
     if @lawyer.save
+<<<<<<< HEAD
       p @lawyer.errors.full_messages
       @lawyer.add_role("lawyer")  
       redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
     else
       p @lawyer.errors.full_messages
+=======
+      @lawyer.add_role("lawyer")  
+      redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
+    else
+>>>>>>> c84184dca469c70b0565de4ab4aea205f5ab8ed6
       render :new
     end
   end
