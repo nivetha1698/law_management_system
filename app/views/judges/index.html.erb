@@ -1,0 +1,13 @@
+<main id="main" class="main">
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">Judges</h5>
+         <div class="d-flex justify-content-end mb-4">
+           <%= link_to 'New Judge', new_judge_path, class: 'btn btn-primary' %>
+         </div>
+         <%= render "judges/index" %>
+      </div> 
+    </div>
+  </section>
+</main>

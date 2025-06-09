@@ -1,0 +1,63 @@
+<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+  <%= form_with(model: current_user, local: true, html: { multipart: true }) do |f| %>
+    <div class="row mb-3">
+      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+      <div class="col-md-8 col-lg-9">
+        <% if current_user.profile_image.attached? %>
+          <%= image_tag current_user.profile_image, alt: "Profile", class: "img-thumbnail" %>
+        <% end %>
+
+        <div class="pt-2">
+          <%= f.file_field :profile_image, class: "d-none", id: "upload-profile-image", direct_upload: true, onchange: "this.form.submit();" %>
+          <label for="upload-profile-image" class="btn btn-primary btn-sm" title="Upload new profile image">
+            <i class="bi bi-upload"></i>
+          </label>
+
+          <%= link_to remove_user_path(current_user), method: :delete, data: { confirm: "Are you sure you want to remove your profile image?" }, class: "btn btn-danger btn-sm", title: "Remove my profile image" do %>
+            <i class="bi bi-trash"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Name</label>
+      <div class="col-md-8 col-lg-9">
+        <%= f.text_field :name, class: "form-control", id: "Name" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Email</label>
+      <div class="col-md-8 col-lg-9">
+        <%= f.email_field :email, class: "form-control", id: "Email" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Country</label>
+      <div class="col-md-8 col-lg-9">
+        <%= f.collection_select :country_id, @countries, :id, :name, { prompt: "Select a country" }, class: "form-control", id: "Country" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Address</label>
+      <div class="col-md-8 col-lg-9">
+        <%= f.text_field :address, class: "form-control", id: "Address" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Phone</label>
+      <div class="col-md-8 col-lg-9">
+        <%= f.telephone_field :phone, class: "form-control", id: "Phone" %>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit "Save", class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+</div>

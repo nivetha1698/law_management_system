@@ -1,0 +1,31 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+        <%= form_with model: @judge, local: true, html: { class: "row g-3" } do |f| %>
+          <div class="col-md-6 mb-3">
+            <%= f.label :Name, class: "form-label fw-bold" %>
+            <%= f.text_field :name, class: "form-control", required: true, disabled: action_name == "show" %>
+          </div>
+          <div class="col-md-6 mb-3">
+            <%= f.label :email, class: "form-label fw-bold" %>
+           <%= f.email_field :email, class: "form-control", required: true, disabled: action_name == "show" %>
+          </div>
+          <div class="col-md-6 mb-3">
+            <%= f.label :gender, class: "form-label fw-bold" %>
+            <%= f.select :gender, options_for_select([['Male', 'male'], ['Female', 'female'], ['Other', 'other']]), { prompt: "Select Gender" }, class: "form-select", disabled: action_name == "show" %>
+          </div>
+          <div class="col-md-6 mb-3">
+            <%= f.label :court_name, class: "form-label fw-bold" %>
+            <%= f.text_field :court_name, class: "form-control", required: true, disabled: action_name == "show"%>
+          </div>
+          <div class="col-md-6 mb-3">
+            <%= f.label :password, class: "form-label fw-bold" %>
+            <%= f.password_field :password, class: "form-control", required: true, disabled: action_name == "show" %>
+          </div>
+          <div class="text-center">
+            <%= f.submit "Submit", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</section>

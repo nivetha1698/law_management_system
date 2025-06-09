@@ -1,0 +1,15 @@
+<main id="main" class="main">
+  <section class="section">
+    <div class="card">
+     <div class="card-body">
+        <h5 class="card-title fw-bold mb-5 d-flex justify-content-between align-items-center">
+         <%= @role&.name %>
+         <%= link_to edit_role_path(@role), class: "text-primary" do %>
+           <i class="bi bi-pencil-square fs-4"></i>
+         <% end %>
+        </h5>
+          <%= render "roles/form" %>
+      </div>
+    </div>
+  </section>
+</main>

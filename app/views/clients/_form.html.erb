@@ -1,0 +1,47 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+        <%= form_with model: @client, local: true, html: { class: "row g-3" } do |f| %>
+            <div class="col-md-6 mb-3">
+              <%= f.label :name, class: "form-label fw-bold" %>
+              <%= f.text_field :name, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :email, class: "form-label fw-bold" %>
+              <%= f.email_field :email, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :phone, class: "form-label fw-bold" %>
+              <%= f.text_field :phone, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :password, class: "form-label fw-bold" %>
+              <%= f.password_field :password, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-12 mb-3">
+              <%= f.label :address, class: "form-label fw-bold" %>
+              <%= f.text_field :address, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-4 mb-3">
+              <%= f.label :city, class: "form-label fw-bold" %>
+              <%= f.text_field :city, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-md-4 mb-3">
+              <%= f.label :zipcode, class: "form-label fw-bold" %>
+              <%= f.text_field :zipcode, class: "form-control", disabled: action_name == "show" %>
+            </div>
+            <div class="col-12 mb-3">
+              <div class="form-check">
+                <%= f.check_box :active, class: "form-check-input", id: "user_active", disabled: action_name == "show" %>
+                <%= f.label :active, "Active", class: "form-check-label", for: "user_active" %>
+              </div>
+            </div>
+            <% unless action_name == "show" %>
+             <div class="text-center">
+              <%= f.submit "Submit", class: "btn btn-primary" %>
+             </div>
+            <% end %>
+        <% end %>
+    </div>
+  </div>
+</section>

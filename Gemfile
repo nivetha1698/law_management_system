@@ -57,3 +57,16 @@ group :test do
 end
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
+<<<<<<< HEAD
+
+gem 'rolify', '~> 5.2'
+
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
+
+gem 'ransack', '~> 4.3', '>= 4.3.0'
+
+gem 'caxlsx', '~> 3.1', '>= 3.1.0'
+gem 'axlsx_rails', '~> 0.6.0', '>= 0.6.1'
+
+=======
+>>>>>>> b77c2ce5a54e7ce772af85b1ee8c155c3732dc29

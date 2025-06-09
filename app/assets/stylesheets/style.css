@@ -1467,5 +1467,35 @@ table.datatable-table:focus tr.datatable-cursor > td:first-child {
 
 table.datatable-table:focus {
 	outline: solid 1px black;
+<<<<<<< HEAD
+  outline-offset: -1px;
+}
+
+.table-hover tbody tr {
+  height: 60px;
+}
+
+.table-hover tbody td {
+  vertical-align: middle;
+}
+
+.bg-login {
+  background-image: image-url('background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; 
+}
+
+.nav-tabs .nav-item {
+  flex: 1;        
+  text-align: center; 
+}
+.nav-tabs .nav-link {
+  width: 100%;     
+}
+
+=======
     outline-offset: -1px;
 }
+>>>>>>> b77c2ce5a54e7ce772af85b1ee8c155c3732dc29
