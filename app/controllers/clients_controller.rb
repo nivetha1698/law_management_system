@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+<<<<<<< HEAD
   require 'csv'
 
   before_action :set_client, only: [:show, :edit, :update, :destroy]
@@ -72,4 +73,7 @@ class ClientsController < ApplicationController
   end
 
 
+=======
+ 
+>>>>>>> b77c2ce5a54e7ce772af85b1ee8c155c3732dc29
 end
