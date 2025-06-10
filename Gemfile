@@ -64,7 +64,7 @@ gem "kaminari", "~> 1.2", ">= 1.2.2"
 
 gem "ransack", "~> 4.3", ">= 4.3.0"
 
-gem "caxlsx", "~> 3.1", ">= 3.1.0"
+gem "caxlsx", "~> 4.2"
 gem "axlsx_rails", "~> 0.6.0", ">= 0.6.1"
 
 gem "jquery-rails"
