@@ -1,6 +1,13 @@
 class CourtCase < ApplicationRecord
    self.table_name = "cases"
 
+  include PgSearch::Model
+
+  pg_search_scope :search_by_keywords,
+                  against: [ :case_number, :title, :court_no ],
+                  using:   { tsearch: { prefix: true } }
+
+
    #--------------------------------------------Associations------------------------------------------------------------
    has_many :tasks, dependent: :destroy
    has_many :checklists, dependent: :destroy
@@ -15,11 +22,4 @@ class CourtCase < ApplicationRecord
    accepts_nested_attributes_for :case_lawyers, allow_destroy: true
 
   #-----------------------------------------Methods----------------------------------------------------------
-  def self.ransackable_attributes(auth_object = nil)
-    %w[case_number title court_no]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    []
-  end
 end

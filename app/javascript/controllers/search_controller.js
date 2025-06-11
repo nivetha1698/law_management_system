@@ -5,7 +5,7 @@ export default class extends Controller {
 
   connect() {
     this.timeout = null
-    if (!this.hasDelayValue) this.delayValue = 300
+    if (!this.hasDelayValue) this.delayValue = 500
   }
 
   search() {
