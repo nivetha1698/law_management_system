@@ -1,8 +1,8 @@
 class Role < ApplicationRecord
-#---------------------------------Associations--------------------------------------------------------------
+  #---------------------------------Associations--------------------------------------------------------------
   has_and_belongs_to_many :users, join_table: :users_roles
   belongs_to :resource, polymorphic: true, optional: true
 
-#-------------------------------------validations----------------------------------------------------
+  #-------------------------------------validations----------------------------------------------------
   validates :name, presence: true
 end

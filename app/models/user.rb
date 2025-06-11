@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   rolify
   ADMIN_ROLES = %w[admin client lawyer judge]
   #---------------------------------------Associations------------------------------------------------
@@ -28,6 +28,4 @@ class User < ApplicationRecord
   def send_welcome_email
     UserMailer.send_welcome_email(self).deliver_now
   end
-
-
 end

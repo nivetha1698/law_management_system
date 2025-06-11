@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @invoices = Invoice.order(created_at: :desc).page(params[:page]).per(5)
@@ -11,13 +11,13 @@ class InvoicesController < ApplicationController
     @services = Service.all
 
      respond_to do |format|
-      format.html 
+      format.html
       format.pdf do
-        render pdf: "invoice_#{@invoice.id}",               
-               template: "invoices/show.pdf",           
-               layout: "pdf",                               
-               disposition: 'attachment',                   
-               formats: [:html]                        
+        render pdf: "invoice_#{@invoice.id}",
+               template: "invoices/show.pdf",
+               layout: "pdf",
+               disposition: "attachment",
+               formats: [ :html ]
       end
     end
   end
@@ -34,7 +34,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(invoice_params)
     if @invoice.save
       p @invoice.errors.full_messages
-      redirect_to invoices_path, notice: 'Invoice was successfully created.'
+      redirect_to invoices_path, notice: "Invoice was successfully created."
     else
       p @invoice.errors.full_messages
       @court_cases = CourtCase.all
@@ -54,7 +54,7 @@ class InvoicesController < ApplicationController
     @services = Service.all
     if @invoice.update(invoice_params)
       p @invoice.errors.full_messages
-      redirect_to invoices_path, notice: 'Invoice was successfully updated.'
+      redirect_to invoices_path, notice: "Invoice was successfully updated."
     else
       p @invoice.errors.full_messages
       render :edit
@@ -63,12 +63,12 @@ class InvoicesController < ApplicationController
 
   def destroy
     @invoice.destroy
-    redirect_to invoices_path, notice: 'Invoice was successfully deleted.'
+    redirect_to invoices_path, notice: "Invoice was successfully deleted."
   end
 
   def get_issued_user
     court_case = CourtCase.find_by(id: params[:case_id])
-    user = court_case&.client 
+    user = court_case&.client
 
     if user
       render json: { id: user.id, name: user.name }
@@ -79,7 +79,7 @@ class InvoicesController < ApplicationController
 
   def new_item_field
     @item = InvoiceItem.new
-    render partial: 'invoice_item_fields', locals: { f: ActionView::Helpers::FormBuilder.new("invoice[invoice_items_attributes][#{params[:index]}]", @item, self, {}) }
+    render partial: "invoice_item_fields", locals: { f: ActionView::Helpers::FormBuilder.new("invoice[invoice_items_attributes][#{params[:index]}]", @item, self, {}) }
   end
 
   private
@@ -90,6 +90,6 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.require(:invoice).permit(:case_id, :issued_to_id, :amount, :status, :issued_at, :due_date,
-                                    invoice_items_attributes: [:id, :item, :service_id, :quantity, :unit_price, :cgst, :sgst, :total, :_destroy])
+                                    invoice_items_attributes: [ :id, :item, :service_id, :quantity, :unit_price, :cgst, :sgst, :total, :_destroy ])
   end
 end

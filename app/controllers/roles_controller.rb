@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
- before_action :set_role, only: [:show, :edit, :update, :destroy]
+ before_action :set_role, only: [ :show, :edit, :update, :destroy ]
 
   def index
    @roles = Role.order(created_at: :desc).page(params[:page]).per(5)
@@ -12,7 +12,7 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(role_params)
     if @role.save
-      redirect_to roles_path, notice: 'Role was successfully created.'
+      redirect_to roles_path, notice: "Role was successfully created."
     else
       render :new
     end
@@ -21,12 +21,12 @@ class RolesController < ApplicationController
   def show
   end
 
-  def edit;
+  def edit
   end
 
   def update
     if @role.update(role_params)
-      redirect_to roles_path, notice: 'Role was successfully updated.'
+      redirect_to roles_path, notice: "Role was successfully updated."
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class RolesController < ApplicationController
 
   def destroy
     @role.destroy
-    redirect_to roles_path, notice: 'Role was successfully deleted.'
+    redirect_to roles_path, notice: "Role was successfully deleted."
   end
 
   private
@@ -46,5 +46,4 @@ class RolesController < ApplicationController
   def set_role
     @role = Role.find(params[:id])
   end
-
 end

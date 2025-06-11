@@ -1,12 +1,12 @@
 class Client < User
   default_scope {
-    joins(:roles).where(roles: { name: ['client'] })
+    joins(:roles).where(roles: { name: [ "client" ] })
   }
 
-#-------------------------------------Associations---------------------------------------------------------
+  #-------------------------------------Associations---------------------------------------------------------
   has_many :court_cases
 
-#-----------------------------------------Methods----------------------------------------------------------
+  #-----------------------------------------Methods----------------------------------------------------------
   def self.ransackable_attributes(auth_object = nil)
     %w[name email phone created_at]
   end

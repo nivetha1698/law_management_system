@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  require 'csv'
+  require "csv"
 
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @q = Task.includes(:assignee).ransack(params[:q])
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
         service = ExportFormatService.new(@tasks, attrs[:attributes], attrs[:title])
         send_data service.generate_xlsx, filename: "tasks-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
-    end      
+    end
   end
 
   def new
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: 'Task was successfully created.'
+      redirect_to tasks_path, notice: "Task was successfully created."
     else
       @users = User.all
       @court_cases = CourtCase.all
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: 'Task was successfully updated.'
+      redirect_to tasks_path, notice: "Task was successfully updated."
     else
       render :edit
     end
@@ -56,7 +56,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: 'Task was successfully deleted.'
+    redirect_to tasks_path, notice: "Task was successfully deleted."
   end
 
   private
@@ -71,10 +71,8 @@ class TasksController < ApplicationController
 
   def export_attributes
    {
-    attributes: ['case_number', 'assignee_name', 'title', 'description', 'status', 'due_date'],
-    title: ['Tasks']
+    attributes: [ "case_number", "assignee_name", "title", "description", "status", "due_date" ],
+    title: [ "Tasks" ]
    }
   end
-
 end
-

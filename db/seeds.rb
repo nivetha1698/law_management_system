@@ -18,4 +18,4 @@ Category.find_or_create_by(name: "civil")
 Category.find_or_create_by(name: "corporate")
 Category.find_or_create_by(name: "family")
 
-Country.create([{ name: "India", code: "IN" }, { name: "United States", code: "US" }, { name: "United Kingdom", code: "UK" }])
+Country.create([ { name: "India", code: "IN" }, { name: "United States", code: "US" }, { name: "United Kingdom", code: "UK" } ])

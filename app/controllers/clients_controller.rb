@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
-  require 'csv'
+  require "csv"
 
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @q = Client.ransack(params[:q])
@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
         service = ExportFormatService.new(@clients, attrs[:attributes], attrs[:title])
         send_data service.generate_xlsx, filename: "clients-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
-    end      
+    end
   end
 
   def new
@@ -28,8 +28,8 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      @client.add_role("client")  
-      redirect_to clients_path, notice: 'Client was successfully created.'
+      @client.add_role("client")
+      redirect_to clients_path, notice: "Client was successfully created."
     else
       render :new
     end
@@ -38,12 +38,12 @@ class ClientsController < ApplicationController
   def show
   end
 
-  def edit;
+  def edit
   end
 
   def update
     if @client.update(client_params)
-      redirect_to clients_path, notice: 'Client was successfully updated.'
+      redirect_to clients_path, notice: "Client was successfully updated."
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class ClientsController < ApplicationController
 
   def destroy
     @client.destroy
-    redirect_to clients_path, notice: 'Client was successfully deleted.'
+    redirect_to clients_path, notice: "Client was successfully deleted."
   end
 
   def cases
@@ -72,8 +72,8 @@ class ClientsController < ApplicationController
 
   def export_attributes
    {
-    attributes: ['name', 'email', 'phone', 'created_at'],
-    title: ['Clients']
+    attributes: [ "name", "email", "phone", "created_at" ],
+    title: [ "Clients" ]
    }
   end
 end

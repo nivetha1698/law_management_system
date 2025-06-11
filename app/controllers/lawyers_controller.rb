@@ -1,12 +1,18 @@
 class LawyersController < ApplicationController
-  before_action :set_lawyer, only: [:show, :edit, :update, :destroy]
+  before_action :set_lawyer, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @q = Lawyer.includes(:category).ransack(params[:q])
-    @lawyers = @q.result(distinct: true)
+    @lawyers = Lawyer.all
 
-    @lawyers = @lawyers.where(category_id: params[:category]) if params[:category].present?
-    @lawyers = @lawyers.order(created_at: :desc).page(params[:page]).per(5)
+    if params[:query].present?
+      @lawyers = @lawyers.search_by_name_email_phone(params[:query])
+    end
+
+    if params[:category].present?
+      @lawyers = @lawyers.where(category_id: params[:category])
+    end
+
+    @lawyers = @lawyers.includes(:category).order(created_at: :desc).page(params[:page]).per(5)
 
     respond_to do |format|
       format.html
@@ -20,7 +26,7 @@ class LawyersController < ApplicationController
         service = ExportFormatService.new(@lawyers, attrs[:attributes], attrs[:title])
         send_data service.generate_xlsx, filename: "lawyers-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
-    end      
+    end
   end
 
   def show;end
@@ -32,17 +38,9 @@ class LawyersController < ApplicationController
   def create
     @lawyer = Lawyer.new(lawyer_params)
     if @lawyer.save
-<<<<<<< HEAD
-      p @lawyer.errors.full_messages
-      @lawyer.add_role("lawyer")  
-      redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
+      @lawyer.add_role("lawyer")
+      redirect_to lawyers_path, notice: "Lawyer was successfully created."
     else
-      p @lawyer.errors.full_messages
-=======
-      @lawyer.add_role("lawyer")  
-      redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
-    else
->>>>>>> c84184dca469c70b0565de4ab4aea205f5ab8ed6
       render :new
     end
   end
@@ -51,16 +49,15 @@ class LawyersController < ApplicationController
 
   def update
     if @lawyer.update(lawyer_params)
-      redirect_to lawyers_path, notice: 'Lawyer was successfully updated.'
+      redirect_to lawyers_path, notice: "Lawyer was successfully updated."
     else
-      p @lawyer
       render :edit
     end
   end
 
   def destroy
     @lawyer.destroy
-    redirect_to lawyers_path, notice: 'Lawyer was successfully deleted.'
+    redirect_to lawyers_path, notice: "Lawyer was successfully deleted."
   end
 
   private
@@ -75,10 +72,8 @@ class LawyersController < ApplicationController
 
   def export_attributes
    {
-    attributes: ['name', 'email', 'phone', 'created_at'],
-    title: ['Clients']
+    attributes: [ "name", "email", "phone", "created_at" ],
+    title: [ "Clients" ]
    }
   end
-
-
 end

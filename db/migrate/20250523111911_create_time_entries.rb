@@ -7,7 +7,7 @@ class CreateTimeEntries < ActiveRecord::Migration[7.2]
       t.decimal :hours, precision: 6, scale: 2
       t.decimal :rate, precision: 8, scale: 2
       t.boolean :billable, default: true
-      
+
       t.timestamps
     end
   end
