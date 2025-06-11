@@ -4,8 +4,18 @@ class CourtCasesController < ApplicationController
   before_action :set_court_case, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @q = CourtCase.ransack(params[:q])
-    @court_cases = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
+    @court_cases = CourtCase.all
+
+    if params[:query].present?
+      @court_cases = @court_cases.search_by_keywords(params[:query])
+    end
+
+    if params[:client].present?
+      @court_cases = @court_cases.where(client_id: params[:client])
+    end
+    @court_cases = @court_cases.where(priority: params[:priority]) if params[:priority].present?
+    @court_cases = @court_cases.order(created_at: :desc).page(params[:page]).per(5)
+
     respond_to do |format|
       format.html
       format.csv do

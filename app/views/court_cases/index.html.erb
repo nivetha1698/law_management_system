@@ -7,8 +7,10 @@
            <%= link_to 'New Case', new_court_case_path, class: 'btn btn-primary' %>
          </div>
          <div class="d-flex justify-content-between mb-4">
-          <%= search_form_for @q, url: court_cases_path, method: :get, class: "d-flex" do |f| %>
-            <%= f.search_field :title_or_case_number_or_court_no_cont, placeholder: "Search...", class: "form-control me-2" %>
+          <%= form_with url: court_cases_path, method: :get, class: "d-flex", data: { controller: "search", turbo_frame: "_top" } do %>
+            <%= search_field_tag :query, params[:query], placeholder: "Search...", class: "form-control me-2", style: "flex: 0.9;", data: { action: "input->search#search" } %>
+            <%= select_tag :client, options_from_collection_for_select(Client.all, :id, :name, params[:client]), include_blank: "Client", class: "form-select me-2", style: "width: 150px;", data: { action: "change->search#search" } %>
+            <%= select_tag :priority, options_for_select(["Low", "Normal", "High", "Urgent", "Critical", "Immediate"], params[:priority]), include_blank: "Priority", class: "form-select me-2", style: "width: 150px;", data: { action: "change->search#search" } %>
           <% end %>
           <div class="btn-group">
            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
