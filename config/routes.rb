@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
- 
-  resources :dashboards, only: [:index]
+
+  resources :dashboards, only: [ :index ]
   resources :users do
     member do
       patch :upload
@@ -18,9 +18,9 @@ Rails.application.routes.draw do
   resources :court_cases do
     member do
       get :lawyers
-    end 
+    end
   end
-  
+
   resources :lawyers
   resources :judges
   resources :tasks
@@ -32,8 +32,8 @@ Rails.application.routes.draw do
     get :get_issued_user, on: :collection
   end
 
-  get '/profile', to: 'users#show_current', as: :profile
+  get "/profile", to: "users#show_current", as: :profile
   get "invoices/new_item_field", to: "invoices#new_item_field"
-  get '/services/:id/price', to: 'services#price'
+  get "/services/:id/price", to: "services#price"
   root "dashboards#index"
 end

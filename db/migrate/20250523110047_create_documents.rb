@@ -5,7 +5,7 @@ class CreateDocuments < ActiveRecord::Migration[7.2]
        t.references "uploaded_by", foreign_key: { to_table: :users }
        t.string "title"
        t.text "file_path", null: false
-       
+
        t.timestamps
     end
   end

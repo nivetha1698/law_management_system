@@ -1,7 +1,7 @@
 class CourtCasesController < ApplicationController
- require 'csv'
+ require "csv"
 
-  before_action :set_court_case, only: [:show, :edit, :update, :destroy]
+  before_action :set_court_case, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @q = CourtCase.ransack(params[:q])
@@ -18,7 +18,7 @@ class CourtCasesController < ApplicationController
         service = ExportFormatService.new(@court_cases, attrs[:attributes], attrs[:title])
         send_data service.generate_xlsx, filename: "court_cases-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
-    end      
+    end
   end
 
   def new
@@ -31,11 +31,11 @@ class CourtCasesController < ApplicationController
   def create
     @court_case = CourtCase.new(court_case_params)
     if @court_case.save
-      redirect_to court_cases_path, notice: 'Court Case was successfully created.'
+      redirect_to court_cases_path, notice: "Court Case was successfully created."
     else
       @clients = Client.all
       @judges = Judge.all
-      @lawyers = Lawyer.all  
+      @lawyers = Lawyer.all
 
       Rails.logger.debug @court_case.errors.full_messages
 
@@ -54,7 +54,7 @@ class CourtCasesController < ApplicationController
 
   def update
     if @court_case.update(court_case_params)
-      redirect_to court_cases_path, notice: 'Court Case was successfully updated.'
+      redirect_to court_cases_path, notice: "Court Case was successfully updated."
     else
       render :edit
     end
@@ -62,7 +62,7 @@ class CourtCasesController < ApplicationController
 
   def destroy
     @court_case.destroy
-    redirect_to court_cases_path, notice: 'Court Case was successfully deleted.'
+    redirect_to court_cases_path, notice: "Court Case was successfully deleted."
   end
 
   def lawyers
@@ -74,7 +74,7 @@ class CourtCasesController < ApplicationController
   private
 
   def court_case_params
-     params.require(:court_case).permit(:title, :description, :status, :case_number, :priority, :workflow_status, :client_id, :category_id, 
+     params.require(:court_case).permit(:title, :description, :status, :case_number, :priority, :workflow_status, :client_id, :category_id,
                                   :first_hearing_date, :next_hearing_date, :court_no, :judge_id, lawyer_ids: [])
   end
 
@@ -84,10 +84,8 @@ class CourtCasesController < ApplicationController
 
   def export_attributes
    {
-    attributes: ['case_number', 'title', 'description', 'status', 'priority', 'next_hearing_date'],
-    title: ['Court Cases']
+    attributes: [ "case_number", "title", "description", "status", "priority", "next_hearing_date" ],
+    title: [ "Court Cases" ]
    }
   end
-
 end
-

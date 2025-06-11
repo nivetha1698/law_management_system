@@ -1,7 +1,7 @@
 class AppointmentsController < ApplicationController
-  require 'csv'
+  require "csv"
 
-  before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_appointment, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @q = Appointment.includes(:client).ransack(params[:q])
@@ -18,7 +18,7 @@ class AppointmentsController < ApplicationController
         service = ExportFormatService.new(@appointments, attrs[:attributes], attrs[:title])
         send_data service.generate_xlsx, filename: "appointments-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
-    end      
+    end
   end
 
   def new
@@ -30,7 +30,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
     if @appointment.save
-      redirect_to appointments_path, notice: 'Appointment was successfully created.'
+      redirect_to appointments_path, notice: "Appointment was successfully created."
     else
       p @appointment.errors.full_messages
       @clients = Client.all
@@ -48,7 +48,7 @@ class AppointmentsController < ApplicationController
 
   def update
     if @appointment.update(appointment_params)
-      redirect_to appointments_path, notice: 'Appointment was successfully updated.'
+      redirect_to appointments_path, notice: "Appointment was successfully updated."
     else
       render :edit
     end
@@ -56,14 +56,14 @@ class AppointmentsController < ApplicationController
 
   def destroy
     @appointment.destroy
-    redirect_to appointments_path, notice: 'Appointment was successfully deleted.'
+    redirect_to appointments_path, notice: "Appointment was successfully deleted."
   end
 
   private
 
   def appointment_params
      params.require(:appointment).permit(:date, :time, :client_id, :case_id, :lawyer_id,
-                                         note_attributes: [:id, :title, :content, :case_id, :lawyer_id, :_destroy])
+                                         note_attributes: [ :id, :title, :content, :case_id, :lawyer_id, :_destroy ])
   end
 
   def set_appointment
@@ -72,10 +72,8 @@ class AppointmentsController < ApplicationController
 
   def export_attributes
    {
-    attributes: ['client_name', 'date', 'time'],
-    title: ['Appointments']
+    attributes: [ "client_name", "date", "time" ],
+    title: [ "Appointments" ]
    }
   end
-
 end
-

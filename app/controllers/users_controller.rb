@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [ :show, :edit, :update ]
 
   def show_current
     @user = current_user
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to @user, notice: "User was successfully created."
     else
       render :new
     end
@@ -26,10 +26,10 @@ class UsersController < ApplicationController
 
   def update
      if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
-    else
+      redirect_to @user, notice: "User was successfully updated."
+     else
       render :edit
-    end
+     end
   end
 
   def upload
@@ -61,5 +61,4 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-
 end

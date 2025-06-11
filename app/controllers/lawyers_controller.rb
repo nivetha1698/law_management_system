@@ -1,5 +1,5 @@
 class LawyersController < ApplicationController
-  before_action :set_lawyer, only: [:show, :edit, :update, :destroy]
+  before_action :set_lawyer, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @lawyers = Lawyer.all
@@ -26,7 +26,7 @@ class LawyersController < ApplicationController
         service = ExportFormatService.new(@lawyers, attrs[:attributes], attrs[:title])
         send_data service.generate_xlsx, filename: "lawyers-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
-    end      
+    end
   end
 
   def show;end
@@ -38,8 +38,8 @@ class LawyersController < ApplicationController
   def create
     @lawyer = Lawyer.new(lawyer_params)
     if @lawyer.save
-      @lawyer.add_role("lawyer")  
-      redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
+      @lawyer.add_role("lawyer")
+      redirect_to lawyers_path, notice: "Lawyer was successfully created."
     else
       render :new
     end
@@ -49,7 +49,7 @@ class LawyersController < ApplicationController
 
   def update
     if @lawyer.update(lawyer_params)
-      redirect_to lawyers_path, notice: 'Lawyer was successfully updated.'
+      redirect_to lawyers_path, notice: "Lawyer was successfully updated."
     else
       render :edit
     end
@@ -57,7 +57,7 @@ class LawyersController < ApplicationController
 
   def destroy
     @lawyer.destroy
-    redirect_to lawyers_path, notice: 'Lawyer was successfully deleted.'
+    redirect_to lawyers_path, notice: "Lawyer was successfully deleted."
   end
 
   private
@@ -72,10 +72,8 @@ class LawyersController < ApplicationController
 
   def export_attributes
    {
-    attributes: ['name', 'email', 'phone', 'created_at'],
-    title: ['Clients']
+    attributes: [ "name", "email", "phone", "created_at" ],
+    title: [ "Clients" ]
    }
   end
-
-
 end

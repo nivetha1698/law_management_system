@@ -1,7 +1,6 @@
 class Invoice < ApplicationRecord
-
   #--------------------------------------Associations---------------------------------------
-  belongs_to :court_case, class_name: 'CourtCase', foreign_key: 'case_id'
+  belongs_to :court_case, class_name: "CourtCase", foreign_key: "case_id"
   belongs_to :issued_to, class_name: "User", foreign_key: "issued_to_id"
   has_many :invoice_items, inverse_of: :invoice, dependent: :destroy
   accepts_nested_attributes_for :invoice_items, allow_destroy: true
@@ -20,7 +19,7 @@ class Invoice < ApplicationRecord
   end
 
   def set_invoice_number
-    date_part = Date.today.strftime("%Y%m") 
+    date_part = Date.today.strftime("%Y%m")
     last_invoice = Invoice.where("invoice_number LIKE ?", "INV-#{date_part}-%").order(:invoice_number).last
 
     if last_invoice && last_invoice.invoice_number.present?

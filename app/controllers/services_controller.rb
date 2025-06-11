@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:edit, :update, :destroy]
+  before_action :set_service, only: [ :edit, :update, :destroy ]
 
   def index
     @services = Service.order(created_at: :desc).page(params[:page]).per(5)
@@ -9,15 +9,15 @@ class ServicesController < ApplicationController
   def create
     @service = Service.new(service_params)
     if @service.save
-      redirect_to services_path, notice: 'Service was successfully created.'
+      redirect_to services_path, notice: "Service was successfully created."
     else
       render :new
     end
   end
 
-  def edit;
+  def edit
     respond_to do |format|
-      format.html 
+      format.html
       format.js
     end
   end
@@ -25,20 +25,20 @@ class ServicesController < ApplicationController
   def update
    if @service.update(service_params)
       respond_to do |format|
-        format.html { redirect_to services_path, notice: 'Service updated successfully.' }
-        format.js   
+        format.html { redirect_to services_path, notice: "Service updated successfully." }
+        format.js
       end
-    else
+   else
       respond_to do |format|
         format.html { render :edit }
-        format.js { render :edit } 
+        format.js { render :edit }
       end
-    end
+   end
   end
 
   def destroy
     @service.destroy
-    redirect_to services_path, notice: 'Service was successfully deleted.'
+    redirect_to services_path, notice: "Service was successfully deleted."
   end
 
   def price
@@ -56,6 +56,4 @@ class ServicesController < ApplicationController
   def set_service
     @service = Service.find(params[:id])
   end
-
-
 end

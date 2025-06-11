@@ -1,5 +1,5 @@
 class JudgesController < ApplicationController
-  before_action :set_judge, only: [:show, :edit, :update, :destroy]
+  before_action :set_judge, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @q = Judge.ransack(params[:q])
@@ -13,8 +13,8 @@ class JudgesController < ApplicationController
   def create
     @judge = Judge.new(judge_params)
     if @judge.save
-      @judge.add_role("judge")  
-      redirect_to judges_path, notice: 'Judge was successfully created.'
+      @judge.add_role("judge")
+      redirect_to judges_path, notice: "Judge was successfully created."
     else
       render :new
     end
@@ -23,12 +23,12 @@ class JudgesController < ApplicationController
   def show
   end
 
-  def edit;
+  def edit
   end
 
   def update
     if @judge.update(judge_params)
-      redirect_to judges_path, notice: 'Judge was successfully updated.'
+      redirect_to judges_path, notice: "Judge was successfully updated."
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class JudgesController < ApplicationController
 
   def destroy
     @judge.destroy
-    redirect_to judges_path, notice: 'Judge was successfully deleted.'
+    redirect_to judges_path, notice: "Judge was successfully deleted."
   end
 
   private

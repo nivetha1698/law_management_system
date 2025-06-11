@@ -1,3 +1,3 @@
 class Judge < User
-  default_scope { joins(:roles).where(roles: { name: ['judge'] })}
+  default_scope { joins(:roles).where(roles: { name: [ "judge" ] }) }
 end

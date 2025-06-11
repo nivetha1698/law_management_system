@@ -5,7 +5,7 @@ class CreateAuditLogs < ActiveRecord::Migration[7.2]
       t.references "user", foreign_key: true
       t.string "action"
       t.text "changes"
-     
+
       t.timestamps
     end
   end
