@@ -72,3 +72,5 @@ gem "cocoon", "~> 1.2", ">= 1.2.15"
 
 gem "wicked_pdf", "~> 2.8.2"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
+
+gem 'pg_search', '~> 2.3', '>= 2.3.6'

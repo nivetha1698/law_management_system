@@ -202,6 +202,9 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    pg_search (2.3.7)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -372,6 +375,7 @@ DEPENDENCIES
   jquery-rails
   kaminari (~> 1.2, >= 1.2.2)
   pg (~> 1.1)
+  pg_search (~> 2.3, >= 2.3.6)
   puma (>= 5.0)
   rails (~> 8.0.2)
   ransack (~> 4.3, >= 4.3.0)

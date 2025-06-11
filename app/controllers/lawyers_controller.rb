@@ -2,11 +2,17 @@ class LawyersController < ApplicationController
   before_action :set_lawyer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @q = Lawyer.includes(:category).ransack(params[:q])
-    @lawyers = @q.result(distinct: true)
+    @lawyers = Lawyer.all
 
-    @lawyers = @lawyers.where(category_id: params[:category]) if params[:category].present?
-    @lawyers = @lawyers.order(created_at: :desc).page(params[:page]).per(5)
+    if params[:query].present?
+      @lawyers = @lawyers.search_by_name_email_phone(params[:query])
+    end
+
+    if params[:category].present?
+      @lawyers = @lawyers.where(category_id: params[:category])
+    end
+
+    @lawyers = @lawyers.includes(:category).order(created_at: :desc).page(params[:page]).per(5)
 
     respond_to do |format|
       format.html
@@ -32,17 +38,9 @@ class LawyersController < ApplicationController
   def create
     @lawyer = Lawyer.new(lawyer_params)
     if @lawyer.save
-<<<<<<< HEAD
-      p @lawyer.errors.full_messages
       @lawyer.add_role("lawyer")  
       redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
     else
-      p @lawyer.errors.full_messages
-=======
-      @lawyer.add_role("lawyer")  
-      redirect_to lawyers_path, notice: 'Lawyer was successfully created.'
-    else
->>>>>>> c84184dca469c70b0565de4ab4aea205f5ab8ed6
       render :new
     end
   end
@@ -53,7 +51,6 @@ class LawyersController < ApplicationController
     if @lawyer.update(lawyer_params)
       redirect_to lawyers_path, notice: 'Lawyer was successfully updated.'
     else
-      p @lawyer
       render :edit
     end
   end
