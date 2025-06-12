@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update ]
-  before_action :authenticate_user!, only: [:upload, :remove]
+  before_action :authenticate_user!, only: [ :upload, :remove ]
 
   def show_current
     @user = current_user
