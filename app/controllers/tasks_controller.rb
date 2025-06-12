@@ -4,8 +4,13 @@ class TasksController < ApplicationController
   before_action :set_task, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @q = Task.includes(:assignee).ransack(params[:q])
-    @tasks = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
+    @tasks = Task.includes(:court_case).all
+    @tasks = @tasks.search_by_keywords(params[:query]) if params[:query].present?
+    @tasks = @tasks.where(assigned_to: params[:assigned_to]) if params[:assigned_to].present?
+    @tasks = @tasks.where(status: params[:status]) if params[:status].present?
+    @tasks = @tasks.where(due_date: params[:due_date]) if params[:due_date].present?
+
+    @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(5)
     respond_to do |format|
       format.html
       format.csv do
