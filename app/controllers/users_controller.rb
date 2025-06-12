@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update ]
+  before_action :authenticate_user!, only: [ :upload, :remove ]
 
   def show_current
     @user = current_user
@@ -55,7 +56,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-     params.require(:user).permit(:name, :email, :gender, :phone, :country_id, :address, :profile_image, :password, :password_confirmation, :created_at, :updated_at)
+     params.require(:user).permit(:name, :email, :gender, :phone, :country_id, :address, :profile_image, :password, :password_confirmation)
   end
 
   def set_user

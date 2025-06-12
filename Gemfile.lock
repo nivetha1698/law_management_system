@@ -88,6 +88,7 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
+    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -365,6 +366,7 @@ DEPENDENCIES
   axlsx_rails (~> 0.6.0, >= 0.6.1)
   bootsnap
   brakeman
+  cancancan (~> 3.5)
   capybara
   caxlsx (~> 4.2)
   cocoon (~> 1.2, >= 1.2.15)

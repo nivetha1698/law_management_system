@@ -1493,3 +1493,9 @@ table.datatable-table:focus {
 .nav-tabs .nav-link {
   width: 100%;     
 }
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}

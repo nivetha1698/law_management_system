@@ -14,7 +14,7 @@ class CourtCasesController < ApplicationController
       @court_cases = @court_cases.where(client_id: params[:client])
     end
     @court_cases = @court_cases.where(priority: params[:priority]) if params[:priority].present?
-    @court_cases = @court_cases.order(created_at: :desc).page(params[:page]).per(5)
+    @court_cases = @court_cases.order("next_hearing_date ASC NULLS LAST").page(params[:page]).per(5)
 
     respond_to do |format|
       format.html
