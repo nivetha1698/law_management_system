@@ -58,6 +58,8 @@ end
 
 gem "devise", "~> 4.9", ">= 4.9.3"
 
+gem "cancancan", "~> 3.5"
+
 gem "rolify", "~> 6.0"
 
 gem "kaminari", "~> 1.2", ">= 1.2.2"
