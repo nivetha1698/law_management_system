@@ -4,6 +4,7 @@ class ServicesController < ApplicationController
   def index
     @services = Service.order(created_at: :desc).page(params[:page]).per(5)
     @service = Service.new
+    @services = @services.search_by_service_name(params[:query]) if params[:query].present?
   end
 
   def create

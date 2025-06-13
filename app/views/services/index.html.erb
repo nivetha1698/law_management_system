@@ -8,6 +8,14 @@
              <i class="bi bi-plus"></i> Service
            </button>
          </div>
+
+         <div class="mb-4">
+          <%= form_with url: services_path, method: :get, data: { controller: "search", turbo_frame: "_top" } do %>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <%= search_field_tag :query, params[:query], placeholder: "Search...", class: "form-control", style: "width: 220px;", data: { action: "input->search#search" } %>
+            </div>
+          <% end %>
+         </div>
          <%= render "services/index" %>
       </div> 
     </div>

@@ -4,8 +4,11 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @q = Appointment.includes(:client).ransack(params[:q])
-    @appointments = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
+    @appointments = Appointment.includes(:client).order(created_at: :desc).page(params[:page]).per(5)
+    @appointments = @appointments.search_by_clients_and_cases(params[:query]) if params[:query].present?
+    @appointments = @appointments.where(lawyer_id: params[:lawyer]) if params[:lawyer].present?
+    @appointments = @appointments.where(date: params[:date]) if params[:date].present?
+    
     respond_to do |format|
       format.html
       format.csv do
