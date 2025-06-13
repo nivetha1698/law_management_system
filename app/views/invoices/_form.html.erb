@@ -16,7 +16,7 @@
           </div>
           <div class="col-md-6 mb-3">
             <%= f.label :status, class: "form-label fw-bold" %>
-            <%= f.select :status, ["unpaid", "paid", "overdue"], { prompt: "Select Status" }, { class: "form-select", disabled: (action_name == "show") } %>
+            <%= f.select :status, [["unpaid", "Unpaid"], ["paid", "Paid"], ["overdue", "Overdue"]], { prompt: "Select Status" }, { class: "form-select", disabled: (action_name == "show")} %>
           </div>
            <div class="col-md-6 mb-3">
             <%= f.label :issued_at, 'Issue Date', class: "form-label fw-bold" %>

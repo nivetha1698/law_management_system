@@ -2,8 +2,9 @@ class JudgesController < ApplicationController
   before_action :set_judge, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @q = Judge.ransack(params[:q])
-    @judges = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
+    @judges = Judge.order(created_at: :desc).page(params[:page]).per(5)
+    @judges = @judges.search_by_keywords(params[:query]) if params[:query].present?
+    @judges = @judges.where(court_name: params[:court]) if params[:court].present?
   end
 
   def new

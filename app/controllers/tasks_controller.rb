@@ -76,7 +76,7 @@ class TasksController < ApplicationController
 
   def export_attributes
    {
-    attributes: [ "case_number", "assignee_name", "title", "description", "status", "due_date" ],
+    attributes: [ "task_name", "case", "assigned_to", "due_date", "status" ],
     title: [ "Tasks" ]
    }
   end

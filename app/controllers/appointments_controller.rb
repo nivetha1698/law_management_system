@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
     @appointments = @appointments.search_by_clients_and_cases(params[:query]) if params[:query].present?
     @appointments = @appointments.where(lawyer_id: params[:lawyer]) if params[:lawyer].present?
     @appointments = @appointments.where(date: params[:date]) if params[:date].present?
-    
+
     respond_to do |format|
       format.html
       format.csv do
@@ -75,7 +75,7 @@ class AppointmentsController < ApplicationController
 
   def export_attributes
    {
-    attributes: [ "client_name", "date", "time" ],
+    attributes: [ "no", "client_name", "case", "lawyer", "date", "time" ],
     title: [ "Appointments" ]
    }
   end
