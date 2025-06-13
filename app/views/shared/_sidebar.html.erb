@@ -1,23 +1,27 @@
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
+    <% current_path = request.path %>
+    
     <li class="nav-item">
-      <a class="nav-link " href="/dashboards">
-        <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+      <a class="nav-link collapsed" href="/dashboards">
+        <i class="bi bi-grid"></i><span>Dashboard</span>
       </a>
     </li>
+
+    <% users_paths = ['/clients', '/lawyers'] %>
+    <% users_active = users_paths.include?(current_path) %>
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#users-nav" aria-expanded="<%= users_active %>">
         <i class="bi bi-people-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <ul id="users-nav" class="nav-content collapse <%= 'show' if users_active %>">
         <li>
-          <a href="/clients">
+          <a href="/clients" class="<%= 'active' if current_path == '/clients' %>">
             <i class="bi bi-circle"></i><span>Clients</span>
           </a>
         </li>
         <li>
-          <a href="/lawyers">
+          <a href="/lawyers" class="<%= 'active' if current_path == '/lawyers' %>">
             <i class="bi bi-circle"></i><span>Team Members</span>
           </a>
         </li>
@@ -25,69 +29,73 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/court_cases">
-        <i class="bi bi-briefcase"></i><span>Cases</span></i>
+      <a class="nav-link collapsed <%= 'active' if current_path == '/court_cases' %>" href="/court_cases">
+        <i class="bi bi-briefcase"></i><span>Cases</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/tasks">
-        <i class="bi bi-list-task"></i><span>Tasks</span></i>
+      <a class="nav-link collapsed <%= 'active' if current_path == '/tasks' %>" href="/tasks">
+        <i class="bi bi-list-task"></i><span>Tasks</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/appointments">
-        <i class="bi bi-calendar-check"></i><span>Appointments</span></i>
+      <a class="nav-link collapsed <%= 'active' if current_path == '/appointments' %>" href="/appointments">
+        <i class="bi bi-calendar-check"></i><span>Appointments</span>
       </a>
     </li>
 
+    <% earnings_paths = ['/services', '/invoices'] %>
+    <% earnings_active = earnings_paths.include?(current_path) %>
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+      <a class="nav-link collapsed <%= earnings_active ? '' : 'collapsed' %> <%= 'active' if earnings_active %>" data-bs-toggle="collapse" href="#earnings-nav">
         <i class="bi bi-cash-stack"></i><span>Earnings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <ul id="earnings-nav" class="nav-content collapse <%= 'show' if earnings_active %>">
         <li>
-          <a href="/services">
+          <a href="/services" class="<%= 'active' if current_path == '/services' %>">
             <i class="bi bi-circle"></i><span>Service</span>
           </a>
         </li>
         <li>
-          <a href="/invoices">
+          <a href="/invoices" class="<%= 'active' if current_path == '/invoices' %>">
             <i class="bi bi-circle"></i><span>Invoice</span>
           </a>
         </li>
       </ul>
     </li>
 
+
+    <% settings_paths = ['/categories', '/judges', '/roles'] %>
+    <% settings_active = settings_paths.include?(current_path) %>
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+      <a class="nav-link collapsed <%= settings_active ? '' : 'collapsed' %> <%= 'active' if settings_active %>" data-bs-toggle="collapse" href="#settings-nav">
         <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <ul id="settings-nav" class="nav-content collapse <%= 'show' if settings_active %>">
         <li>
-          <a href="/categories">
+          <a href="/categories" class="<%= 'active' if current_path == '/categories' %>">
             <i class="bi bi-circle"></i><span>Case Type</span>
           </a>
         </li>
         <li>
-          <a href="/judges">
+          <a href="/judges" class="<%= 'active' if current_path == '/judges' %>">
             <i class="bi bi-circle"></i><span>Judge</span>
           </a>
         </li>
         <li>
-          <a href="/roles/">
+          <a href="/roles" class="<%= 'active' if current_path == '/roles' %>">
             <i class="bi bi-circle"></i><span>Role</span>
           </a>
         </li>
       </ul>
     </li>
+
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" href="<%= profile_path %>">
-        <i class="bi bi-person-workspace"></i><span>Profile</span></i>
+      <a class="nav-link  collapsed<%= 'active' if current_path == profile_path %>" href="<%= profile_path %>">
+        <i class="bi bi-person-workspace"></i><span>Profile</span>
       </a>
     </li>
-
-    
   </ul>
 </aside>
