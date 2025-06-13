@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   require "csv"
-
-  before_action :set_client, only: [ :show, :edit, :update, :destroy ]
+   
+  load_and_authorize_resource
 
   def index
     @q = Client.ransack(params[:q])
@@ -64,10 +64,6 @@ class ClientsController < ApplicationController
 
   def client_params
      params.require(:client).permit(:name, :email, :gender, :phone, :address, :category_id, :city, :zipcode, :active, :password, :password_confirmation, :created_at, :updated_at)
-  end
-
-  def set_client
-    @client = Client.find(params[:id])
   end
 
   def export_attributes

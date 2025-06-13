@@ -1,10 +1,10 @@
 class AppointmentsController < ApplicationController
   require "csv"
 
-  before_action :set_appointment, only: [ :show, :edit, :update, :destroy ]
+  load_and_authorize_resource
 
   def index
-    @appointments = Appointment.includes(:client).order(created_at: :desc).page(params[:page]).per(5)
+    @appointments = @appointments.includes(:client).order(created_at: :desc).page(params[:page]).per(5)
     @appointments = @appointments.search_by_clients_and_cases(params[:query]) if params[:query].present?
     @appointments = @appointments.where(lawyer_id: params[:lawyer]) if params[:lawyer].present?
     @appointments = @appointments.where(date: params[:date]) if params[:date].present?
@@ -35,7 +35,6 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       redirect_to appointments_path, notice: "Appointment was successfully created."
     else
-      p @appointment.errors.full_messages
       @clients = Client.all
       render :new
     end
@@ -67,10 +66,6 @@ class AppointmentsController < ApplicationController
   def appointment_params
      params.require(:appointment).permit(:date, :time, :client_id, :case_id, :lawyer_id,
                                          note_attributes: [ :id, :title, :content, :case_id, :lawyer_id, :_destroy ])
-  end
-
-  def set_appointment
-    @appointment = Appointment.find(params[:id])
   end
 
   def export_attributes
