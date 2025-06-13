@@ -49,7 +49,7 @@
     <% earnings_paths = ['/services', '/invoices'] %>
     <% earnings_active = earnings_paths.include?(current_path) %>
     <li class="nav-item">
-      <a class="nav-link collapsed <%= earnings_active ? '' : 'collapsed' %> <%= 'active' if earnings_active %>" data-bs-toggle="collapse" href="#earnings-nav">
+      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#earnings-nav" aria-expanded="<%= earnings_active %>">
         <i class="bi bi-cash-stack"></i><span>Earnings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="earnings-nav" class="nav-content collapse <%= 'show' if earnings_active %>">
@@ -70,7 +70,7 @@
     <% settings_paths = ['/categories', '/judges', '/roles'] %>
     <% settings_active = settings_paths.include?(current_path) %>
     <li class="nav-item">
-      <a class="nav-link collapsed <%= settings_active ? '' : 'collapsed' %> <%= 'active' if settings_active %>" data-bs-toggle="collapse" href="#settings-nav">
+      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#settings-nav" aria-expanded="<%= settings_active %>">
         <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="settings-nav" class="nav-content collapse <%= 'show' if settings_active %>">
