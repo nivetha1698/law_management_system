@@ -2,7 +2,24 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @invoices = Invoice.order(created_at: :desc).page(params[:page]).per(5)
+    @invoices = Invoice.includes(:court_case, :issued_to).order(created_at: :desc).page(params[:page]).per(5)
+    @invoices = @invoices.search_by_keywords(params[:query]) if params[:query].present?
+    @invoices = @invoices.where(due_date: params[:due_date]) if params[:due_date].present?
+    @invoices = @invoices.where(status: params[:status]) if params[:status].present?
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        attrs = export_attributes
+        service = ExportFormatService.new(@invoices, attrs[:attributes], attrs[:title])
+        send_data service.generate_csv, filename: "invoices-#{Date.today}.csv"
+      end
+      format.xlsx do
+        attrs = export_attributes
+        service = ExportFormatService.new(@invoices, attrs[:attributes], attrs[:title])
+        send_data service.generate_xlsx, filename: "invoices-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      end
+    end
   end
 
   def show
@@ -80,6 +97,13 @@ class InvoicesController < ApplicationController
   def new_item_field
     @item = InvoiceItem.new
     render partial: "invoice_item_fields", locals: { f: ActionView::Helpers::FormBuilder.new("invoice[invoice_items_attributes][#{params[:index]}]", @item, self, {}) }
+  end
+
+   def export_attributes
+   {
+    attributes: [ "invoice_no", "client_name", "issued_date", "status", "total", "paid", "due_date" ],
+    title: [ "Invoices" ]
+   }
   end
 
   private

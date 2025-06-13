@@ -2,7 +2,7 @@ class Appointment < ApplicationRecord
   include PgSearch::Model
 
   pg_search_scope :search_by_clients_and_cases,
-                  associated_against: { client: [:name], court_case: [ :title ] },
+                  associated_against: { client: [ :name ], court_case: [ :title ] },
                   using: { tsearch: { prefix: true } }
 
 

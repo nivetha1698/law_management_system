@@ -1,7 +1,14 @@
 class Invoice < ApplicationRecord
+  include PgSearch::Model
+
+  pg_search_scope :search_by_keywords,
+                  against: :invoice_number,
+                  associated_against: { issued_to: [ :name ] },
+                  using: { tsearch: { prefix: true } }
+
   #--------------------------------------Associations---------------------------------------
   belongs_to :court_case, class_name: "CourtCase", foreign_key: "case_id"
-  belongs_to :issued_to, class_name: "User", foreign_key: "issued_to_id"
+  belongs_to :issued_to, class_name: "Client", foreign_key: "issued_to_id"
   has_many :invoice_items, inverse_of: :invoice, dependent: :destroy
   accepts_nested_attributes_for :invoice_items, allow_destroy: true
 
