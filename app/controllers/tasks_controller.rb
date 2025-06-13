@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   require "csv"
 
-  before_action :set_task, only: [ :show, :edit, :update, :destroy ]
-
+  load_and_authorize_resource
+  
   def index
-    @tasks = Task.includes(:court_case).all
+    @tasks = @tasks.includes(:court_case)
     @tasks = @tasks.search_by_keywords(params[:query]) if params[:query].present?
     @tasks = @tasks.where(assigned_to: params[:assigned_to]) if params[:assigned_to].present?
     @tasks = @tasks.where(status: params[:status]) if params[:status].present?
@@ -68,10 +68,6 @@ class TasksController < ApplicationController
 
   def task_params
      params.require(:task).permit(:title, :description, :status, :case_id, :due_date, :assigned_to)
-  end
-
-  def set_task
-    @task = Task.find(params[:id])
   end
 
   def export_attributes

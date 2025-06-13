@@ -1,10 +1,10 @@
 class CourtCasesController < ApplicationController
  require "csv"
 
-  before_action :set_court_case, only: [ :show, :edit, :update, :destroy ]
+  load_and_authorize_resource
 
   def index
-    @court_cases = CourtCase.all
+    @court_cases
 
     if params[:query].present?
       @court_cases = @court_cases.search_by_keywords(params[:query])

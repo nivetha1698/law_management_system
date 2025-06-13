@@ -1,8 +1,9 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [ :show, :edit, :update, :destroy ]
-
+  
+  load_and_authorize_resource
+  
   def index
-    @invoices = Invoice.includes(:court_case, :issued_to).order(created_at: :desc).page(params[:page]).per(5)
+    @invoices = @invoices.includes(:court_case, :issued_to).order(created_at: :desc).page(params[:page]).per(5)
     @invoices = @invoices.search_by_keywords(params[:query]) if params[:query].present?
     @invoices = @invoices.where(due_date: params[:due_date]) if params[:due_date].present?
     @invoices = @invoices.where(status: params[:status]) if params[:status].present?
