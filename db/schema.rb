@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_04_110058) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_13_141717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -97,6 +97,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_04_110058) do
     t.date "next_hearing_date"
     t.string "court_no"
     t.bigint "judge_id"
+    t.bigint "lawyer_id"
     t.index ["category_id"], name: "index_cases_on_category_id"
     t.index ["client_id"], name: "index_cases_on_client_id"
     t.index ["judge_id"], name: "index_cases_on_judge_id"

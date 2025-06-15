@@ -9,13 +9,27 @@ class Ability
     user_roles = user.roles.pluck(:name)
 
     if user_roles.include?("lawyer")
-      can :read, Case, lawyer_id: user.id
-      can :read, Task, lawyer_id: user.id
+      can :read, :dashboard
+      
+      can :read, CourtCase, lawyers: { id: user.id }
+      cannot :destroy, CourtCase
+
+      can :manage, Task, assigned_to: user.id
+      cannot :destroy, Task
+
       can :manage, Appointment, lawyer_id: user.id
-      can :manage, Document, case: { lawyer_id: user.id }
-      can :manage, DocumentVersions, document: { case: { lawyer_id: user.id } }
-      can :create, Notes, lawyer_id: user.id
-      cannot :destroy, Case
+
+      can :manage, Invoice, court_case: { lawyer_id: user.id }
+      cannot :destroy, Invoice
+
+      can [:read, :update], User, user_id: user.id
+
+      
+      
+      cannot :manage, User
+      cannot :manage, Judge
+      cannot :manage, Role
+      cannot :manage, Category
     end
 
     if user_roles.include?("admin")
@@ -23,10 +37,10 @@ class Ability
     end
 
     if user_roles.include?("client")
-      can :read, Case, client_id: user.id
-      can :read, Document, case: { client_id: user.id }
-      can :read, DocumentVersions, document: { case: { lawyer_id: user.id } }
-      can :read, Appointment, lawyer_id: user.id
+      can :read, CourtCase, client_id: user.id
+      can :read, Appointment, client_id: user.id
+      can :read, Invoice, issued_to_id: user.id
+      cannot :destroy, Invoice
     end
 
     if user_roles.include?("judge")

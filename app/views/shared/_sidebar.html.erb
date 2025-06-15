@@ -8,8 +8,10 @@
       </a>
     </li>
 
+
     <% users_paths = ['/clients', '/lawyers'] %>
     <% users_active = users_paths.include?(current_path) %>
+    <% if current_user.has_role?(:admin) %>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#users-nav" aria-expanded="<%= users_active %>">
         <i class="bi bi-people-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -27,37 +29,46 @@
         </li>
       </ul>
     </li>
+    <% end %>
 
     <li class="nav-item">
       <a class="nav-link collapsed <%= 'active' if current_path == '/court_cases' %>" href="/court_cases">
         <i class="bi bi-briefcase"></i><span>Cases</span>
       </a>
     </li>
-
+   
+    <% if current_user.has_role?(:admin) || current_user.has_role?(:lawyer) %>
     <li class="nav-item">
       <a class="nav-link collapsed <%= 'active' if current_path == '/tasks' %>" href="/tasks">
         <i class="bi bi-list-task"></i><span>Tasks</span>
       </a>
     </li>
+    <% end %>
 
+    <% if current_user.has_role?(:admin) || current_user.has_role?(:lawyer) || current_user.has_role?(:client) %>
     <li class="nav-item">
       <a class="nav-link collapsed <%= 'active' if current_path == '/appointments' %>" href="/appointments">
         <i class="bi bi-calendar-check"></i><span>Appointments</span>
       </a>
     </li>
+    <% end %>
+
 
     <% earnings_paths = ['/services', '/invoices'] %>
     <% earnings_active = earnings_paths.include?(current_path) %>
+    <% if current_user.has_role?(:admin) || current_user.has_role?(:lawyer) || current_user.has_role?(:client) %>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#earnings-nav" aria-expanded="<%= earnings_active %>">
         <i class="bi bi-cash-stack"></i><span>Earnings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="earnings-nav" class="nav-content collapse <%= 'show' if earnings_active %>">
+        <% if current_user.has_role?(:admin) %>
         <li>
           <a href="/services" class="<%= 'active' if current_path == '/services' %>">
             <i class="bi bi-circle"></i><span>Service</span>
           </a>
         </li>
+        <% end %>
         <li>
           <a href="/invoices" class="<%= 'active' if current_path == '/invoices' %>">
             <i class="bi bi-circle"></i><span>Invoice</span>
@@ -65,10 +76,12 @@
         </li>
       </ul>
     </li>
+    <% end %>
 
 
     <% settings_paths = ['/categories', '/judges', '/roles'] %>
     <% settings_active = settings_paths.include?(current_path) %>
+    <% if current_user.has_role?(:admin) %>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#settings-nav" aria-expanded="<%= settings_active %>">
         <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -91,6 +104,7 @@
         </li>
       </ul>
     </li>
+    <% end %>
 
     <li class="nav-item">
       <a class="nav-link  collapsed<%= 'active' if current_path == profile_path %>" href="<%= profile_path %>">
