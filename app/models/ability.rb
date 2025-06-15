@@ -37,10 +37,10 @@ class Ability
     end
 
     if user_roles.include?("client")
-      can :read, Case, client_id: user.id
-      can :read, Document, case: { client_id: user.id }
-      can :read, DocumentVersions, document: { case: { lawyer_id: user.id } }
-      can :read, Appointment, lawyer_id: user.id
+      can :read, CourtCase, client_id: user.id
+      can :read, Appointment, client_id: user.id
+      can :read, Invoice, issued_to_id: user.id
+      cannot :destroy, Invoice
     end
 
     if user_roles.include?("judge")

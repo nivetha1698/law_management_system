@@ -45,15 +45,18 @@
     </li>
     <% end %>
 
+    <% if current_user.has_role?(:admin) || current_user.has_role?(:lawyer) || current_user.has_role?(:client) %>
     <li class="nav-item">
       <a class="nav-link collapsed <%= 'active' if current_path == '/appointments' %>" href="/appointments">
         <i class="bi bi-calendar-check"></i><span>Appointments</span>
       </a>
     </li>
+    <% end %>
+
 
     <% earnings_paths = ['/services', '/invoices'] %>
     <% earnings_active = earnings_paths.include?(current_path) %>
-    <% if current_user.has_role?(:admin) || current_user.has_role?(:lawyer) %>
+    <% if current_user.has_role?(:admin) || current_user.has_role?(:lawyer) || current_user.has_role?(:client) %>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#earnings-nav" aria-expanded="<%= earnings_active %>">
         <i class="bi bi-cash-stack"></i><span>Earnings</span><i class="bi bi-chevron-down ms-auto"></i>
