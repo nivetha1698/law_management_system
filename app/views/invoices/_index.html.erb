@@ -17,9 +17,18 @@
         <td><%= invoice&.invoice_number %></td>
         <td><%= invoice&.issued_to&.name %></td>
         <td><%= invoice&.issued_at %></td>
-        <td><%= invoice&.status %></td>
-        <td><%= invoice&.amount %></td>
-        <td></td>
+        <td><%= invoice_status(invoice&.status) %></td>
+        <td><%= invoice&.invoice_items&.sum(:total) %></td>
+        <td>
+          <% case invoice.status %>
+          <% when 'Paid' %>
+            <span class="text-success">✔</span>
+          <% when 'Unpaid' %>
+            <span class="text-warning">✖</span>
+          <% when 'Overdue' %>
+            <span class="text-danger">⚠️</span>
+          <% end %>
+        </td>
         <td><%= invoice&.due_date %></td>
         <td onclick="event.stopPropagation();" class="position-relative">
          <div class="dropdown">

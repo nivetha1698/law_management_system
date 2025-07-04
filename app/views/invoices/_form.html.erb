@@ -34,12 +34,14 @@
             <% end %>
           </div>
 
+          <% unless action_name == "show" %>
           <div class="mb-3">
             <%= link_to_add_association 'Add item', f, :invoice_items, data: {association_insertion_node: '.invoice_items', association_insertion_method: :append}, class: "btn btn-secondary" %>
-      
+          
           <div class="text-center">
             <%= f.submit "Submit", class: "btn btn-primary" %>
           </div>
+          <% end %>
         <% end %>
     </div>
   </div>

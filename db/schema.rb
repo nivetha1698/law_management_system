@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_04_073127) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_04_104052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -171,7 +171,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_073127) do
     t.string "unit_price"
     t.string "cgst"
     t.string "sgst"
-    t.string "total"
+    t.decimal "total", precision: 10, scale: 2
     t.bigint "service_id"
     t.bigint "invoice_id", null: false
     t.datetime "created_at", null: false

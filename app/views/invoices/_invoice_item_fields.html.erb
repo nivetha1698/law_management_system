@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :quantity, class: "form-label fw-bold" %>
-      <%= f.number_field :quantity, class: "form-control", disabled: action_name == "show" %>
+      <%= f.number_field :quantity, class: "form-control", id: "quantity", disabled: action_name == "show" %>
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :service, 'Service', class: "form-label fw-bold" %>
@@ -15,44 +15,83 @@
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :unit_price, class: "form-label fw-bold" %>
-      <%= f.number_field :unit_price, class: "form-control", id: "unit-price", disabled: action_name == "show" %>
+      <%= f.number_field :unit_price, class: "form-control unit-price", id: "unit-price", disabled: action_name == "show" %>
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :gst, "GST (%)", class: "form-label fw-bold" %>
-      <%= f.number_field :gst, class: "form-control", disabled: action_name == "show" %>
+      <%= f.number_field :gst, class: "form-control", id: "gst-rate", disabled: action_name == "show" %>
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :cgst, class: "form-label fw-bold" %>
-      <%= f.number_field :cgst, class: "form-control", disabled: action_name == "show" %>
+      <%= f.number_field :cgst, step: "0.01", class: "form-control", id: "cgst", disabled: action_name == "show" %>
     </div>
     <div class="col-md-4 mb-3">
      <%= f.label :sgst, class: "form-label fw-bold" %>
-     <%= f.number_field :sgst, class: "form-control", disabled: action_name == "show" %>
+     <%= f.number_field :sgst, step: "0.01", class: "form-control", id: "sgst", disabled: action_name == "show" %>
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :total, class: "form-label fw-bold" %>
-      <%= f.number_field :total, class: "form-control", disabled: action_name == "show" %>
+      <%= f.number_field :total, step: "0.01", class: "form-control", id: "total", disabled: action_name == "show" %>
     </div>
-    <div class="col">
+    <% unless action_name == "show" %>
+    <div class="col-md-4 mt-4">
       <%= link_to_remove_association "Remove", f, class: "btn btn-danger" %>
     </div>
+    <% end %>
   </div>
   <hr>
  </div>
 </div>
 
 <script>
- document.addEventListener("DOMContentLoaded", function () {
-  const serviceSelect = document.getElementById("service-select");
-  const unitPriceInput = document.getElementById("unit-price");
+  document.addEventListener("DOMContentLoaded", function () {
+    const services = <%= raw(@services.to_json(only: [:id, :amount])) %>;
 
-  const services = <%= raw(@services.to_json(only: [:id, :amount])) %>;
+    document.querySelectorAll(".nested-fields").forEach(function (fieldGroup) {
+      const serviceSelect = fieldGroup.querySelector(".form-select#service-select");
+      const unitPriceInput = fieldGroup.querySelector(".form-control#unit-price");
 
-  serviceSelect.addEventListener("change", function () {
-    const selectedId = parseInt(this.value);
-    const service = services.find(s => s.id === selectedId);
-    unitPriceInput.value = service ? service.amount : "";
+      if (serviceSelect && unitPriceInput) {
+        serviceSelect.addEventListener("change", function () {
+          const selectedId = parseInt(this.value);
+          const service = services.find(s => s.id === selectedId);
+          unitPriceInput.value = service ? service.amount : "";
+        });
+      }
+    });
   });
- });
+</script>
 
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".nested-fields").forEach(function (fieldGroup) {
+      const quantityInput = fieldGroup.querySelector("#quantity");
+      const unitPriceInput = fieldGroup.querySelector("#unit-price");
+      const gstRateSelect = fieldGroup.querySelector("#gst-rate");
+      const cgstInput = fieldGroup.querySelector("#cgst");
+      const sgstInput = fieldGroup.querySelector("#sgst");
+      const totalInput = fieldGroup.querySelector("#total");
+
+      function calculateTotal() {
+        const quantity = parseFloat(quantityInput?.value) || 0;
+        const unitPrice = parseFloat(unitPriceInput?.value) || 0;
+        const gstRate = parseFloat(gstRateSelect?.value) || 0;
+
+        const subtotal = quantity * unitPrice;
+        const gstAmount = subtotal * (gstRate / 100);
+        const halfGst = gstAmount / 2;
+        const total = subtotal + gstAmount;
+
+        cgstInput.value = halfGst.toFixed(2);
+        sgstInput.value = halfGst.toFixed(2);
+        totalInput.value = total.toFixed(2);
+      }
+
+      if (quantityInput) quantityInput.addEventListener("input", calculateTotal);
+      if (unitPriceInput) unitPriceInput.addEventListener("input", calculateTotal);
+      if (gstRateSelect) gstRateSelect.addEventListener("change", calculateTotal);
+    });
+  });
 </script>
