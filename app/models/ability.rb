@@ -10,7 +10,7 @@ class Ability
 
     if user_roles.include?("lawyer")
       can :read, :dashboard
-      
+
       can :read, CourtCase, lawyers: { id: user.id }
       cannot :destroy, CourtCase
 
@@ -22,10 +22,10 @@ class Ability
       can :manage, Invoice, court_case: { lawyer_id: user.id }
       cannot :destroy, Invoice
 
-      can [:read, :update], User, user_id: user.id
+      can [ :read, :update ], User, user_id: user.id
 
-      
-      
+
+
       cannot :manage, User
       cannot :manage, Judge
       cannot :manage, Role

@@ -1,7 +1,6 @@
 class InvoicesController < ApplicationController
-  
   load_and_authorize_resource
-  
+
   def index
     @invoices = @invoices.includes(:court_case, :issued_to).order(created_at: :desc).page(params[:page]).per(5)
     @invoices = @invoices.search_by_keywords(params[:query]) if params[:query].present?
