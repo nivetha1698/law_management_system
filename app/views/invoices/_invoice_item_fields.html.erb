@@ -11,11 +11,15 @@
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :service, 'Service', class: "form-label fw-bold" %>
-      <%= f.collection_select :service_id, @services, :id, :name, { prompt: "Select Service" }, { class: "form-select", disabled: (action_name == "show") } %>
+      <%= f.collection_select :service_id, @services, :id, :name, { prompt: "Select Service" }, { class: "form-select", id: "service-select", disabled: (action_name == "show") } %>
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :unit_price, class: "form-label fw-bold" %>
-      <%= f.number_field :unit_price, class: "form-control", disabled: action_name == "show" %>
+      <%= f.number_field :unit_price, class: "form-control", id: "unit-price", disabled: action_name == "show" %>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.label :gst, "GST (%)", class: "form-label fw-bold" %>
+      <%= f.number_field :gst, class: "form-control", disabled: action_name == "show" %>
     </div>
     <div class="col-md-4 mb-3">
       <%= f.label :cgst, class: "form-label fw-bold" %>
@@ -38,20 +42,17 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".service-select").forEach(select => {
-    select.addEventListener("change", function() {
-      let serviceId = this.value;
-      if (serviceId) {
-        fetch(`/services/${serviceId}/price`)
-          .then(response => response.json())
-          .then(data => {
-            this.closest(".row").querySelector(".unit-price").value = data.amount;
-          })
-          .catch(error => console.error("Error fetching price:", error));
-      }
-    });
+ document.addEventListener("DOMContentLoaded", function () {
+  const serviceSelect = document.getElementById("service-select");
+  const unitPriceInput = document.getElementById("unit-price");
+
+  const services = <%= raw(@services.to_json(only: [:id, :amount])) %>;
+
+  serviceSelect.addEventListener("change", function () {
+    const selectedId = parseInt(this.value);
+    const service = services.find(s => s.id === selectedId);
+    unitPriceInput.value = service ? service.amount : "";
   });
-});
+ });
 
 </script>
