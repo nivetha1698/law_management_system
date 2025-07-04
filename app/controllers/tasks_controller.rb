@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   require "csv"
 
   load_and_authorize_resource
-  
+
   def index
     @tasks = @tasks.includes(:court_case)
     @tasks = @tasks.search_by_keywords(params[:query]) if params[:query].present?

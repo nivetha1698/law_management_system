@@ -1,7 +1,6 @@
 class InvoicesController < ApplicationController
-  
   load_and_authorize_resource
-  
+
   def index
     @invoices = @invoices.includes(:court_case, :issued_to).order(created_at: :desc).page(params[:page]).per(5)
     @invoices = @invoices.search_by_keywords(params[:query]) if params[:query].present?
@@ -51,10 +50,8 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.new(invoice_params)
     if @invoice.save
-      p @invoice.errors.full_messages
       redirect_to invoices_path, notice: "Invoice was successfully created."
     else
-      p @invoice.errors.full_messages
       @court_cases = CourtCase.all
       @users = User.all
       render :new
@@ -71,10 +68,8 @@ class InvoicesController < ApplicationController
     @court_cases = CourtCase.all
     @services = Service.all
     if @invoice.update(invoice_params)
-      p @invoice.errors.full_messages
       redirect_to invoices_path, notice: "Invoice was successfully updated."
     else
-      p @invoice.errors.full_messages
       render :edit
     end
   end
@@ -115,6 +110,6 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.require(:invoice).permit(:case_id, :issued_to_id, :amount, :status, :issued_at, :due_date,
-                                    invoice_items_attributes: [ :id, :item, :service_id, :quantity, :unit_price, :cgst, :sgst, :total, :_destroy ])
+                                    invoice_items_attributes: [ :id, :item, :service_id, :quantity, :unit_price, :gst, :cgst, :sgst, :total, :_destroy ])
   end
 end

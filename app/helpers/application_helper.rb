@@ -41,4 +41,15 @@ module ApplicationHelper
       content_tag(:span, priority.to_s.capitalize, class: "badge rounded-pill bg-light text-dark")
     end
   end
+
+  def invoice_status(status)
+    case status&.downcase
+    when "unpaid"
+      content_tag(:span, status.capitalize, class: "badge border-warning border-1 text-warning")
+    when "paid"
+      content_tag(:span, status.capitalize, class: "badge border-success border-1 text-success")
+    when "overdue"
+      content_tag(:span, status.capitalize, class: "badge border-danger border-1 text-danger")
+    end
+  end
 end
