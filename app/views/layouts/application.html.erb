@@ -23,6 +23,7 @@
     <% if current_user.present? %>
       <%= render "shared/header" %>
       <%= render "shared/sidebar" %>
+      <%= render 'shared/flash' %>
     <% end %>
     <%= yield %>
   </body>
