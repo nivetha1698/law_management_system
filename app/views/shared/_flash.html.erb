@@ -1,0 +1,35 @@
+<% flash.each do |type, message| %>
+  <% bootstrap_class = case type.to_sym
+     when :notice then "success"
+     when :alert then "danger"
+     when :error then "danger"
+     else type
+     end 
+
+     icon = case bootstrap_class
+      when "success" then "bi bi-check-circle-fill"
+      when "danger" then "bi bi-exclamation-triangle-fill"
+      when "info" then "bi bi-info-circle-fill"
+      when "warning" then "bi bi-exclamation-circle-fill"
+      else "bi bi-info-circle"
+    end
+   %>
+
+  <div class="alert alert-<%= bootstrap_class %> alert-dismissible fade show mt-3" role="alert">
+    <i class="<%= icon %> me-2 fs-5"></i><%= message %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+
+<script>
+  document.addEventListener("turbo:load", function () {
+    setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => {
+        let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+        bsAlert.close();
+      });
+    }, 4000); 
+  });
+</script>
