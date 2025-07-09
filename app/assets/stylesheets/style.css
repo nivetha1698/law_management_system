@@ -1499,3 +1499,7 @@ table.datatable-table:focus {
   height: 40px;
   object-fit: cover;
 }
+
+.bg-light-blue {
+  background-color: #e6f2ff;
+}

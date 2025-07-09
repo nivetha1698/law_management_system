@@ -52,4 +52,13 @@ module ApplicationHelper
       content_tag(:span, status.capitalize, class: "badge border-danger border-1 text-danger")
     end
   end
+
+  def invoice_status_class(status)
+    case status
+    when 'paid' then 'success'
+    when 'unpaid' then 'danger'
+    when 'pending' then 'warning'
+    else 'secondary'
+    end
+  end
 end

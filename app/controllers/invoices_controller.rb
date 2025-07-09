@@ -23,9 +23,11 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    @invoice = Invoice.find(params[:id])
     @court_cases = CourtCase.all
     @users = User.all
     @services = Service.all
+    @invoice_items = @invoice.invoice_items
 
      respond_to do |format|
       format.html
