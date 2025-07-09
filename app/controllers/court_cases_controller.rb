@@ -46,9 +46,7 @@ class CourtCasesController < ApplicationController
       @clients = Client.all
       @judges = Judge.all
       @lawyers = Lawyer.all
-
-      Rails.logger.debug @court_case.errors.full_messages
-
+      
       render :new
     end
   end

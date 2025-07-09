@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user)
   end
 
+  def after_sign_in_path_for(resource)
+    dashboards_path
+  end
+
   private
 
   def configure_permitted_parameters
