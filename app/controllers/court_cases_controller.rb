@@ -46,7 +46,7 @@ class CourtCasesController < ApplicationController
       @clients = Client.all
       @judges = Judge.all
       @lawyers = Lawyer.all
-      
+
       render :new
     end
   end
