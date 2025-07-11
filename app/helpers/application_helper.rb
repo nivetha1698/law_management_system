@@ -55,10 +55,10 @@ module ApplicationHelper
 
   def invoice_status_class(status)
     case status
-    when 'paid' then 'success'
-    when 'unpaid' then 'danger'
-    when 'pending' then 'warning'
-    else 'secondary'
+    when "paid" then "success"
+    when "unpaid" then "danger"
+    when "pending" then "warning"
+    else "secondary"
     end
   end
 end
