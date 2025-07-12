@@ -23,13 +23,14 @@
 
 
 <script>
-  document.addEventListener("turbo:load", function () {
-    setTimeout(() => {
-      const alerts = document.querySelectorAll('.alert');
-      alerts.forEach(alert => {
-        let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
-        bsAlert.close();
-      });
-    }, 4000); 
+  $(document).on("turbo:load", function () {
+    $(".alert").each(function () {
+      if ($(this).is(":visible")) {
+        setTimeout(() => {
+          $(this).fadeOut("slow");
+        }, 4000);
+      }
+    });
   });
 </script>
+
