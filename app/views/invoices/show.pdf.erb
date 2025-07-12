@@ -1,4 +1,77 @@
-<h1>Invoice <%= @invoice.invoice_number %></h1>
-<p><strong>Total:</strong> <%= number_to_currency(@invoice.total_amount) %></p>
 
+        <div class="pagetitle mb-1 ms-2 d-flex align-items-center justify-content-between">
+         <h4 class="mb-2 fw-bold mb-0" style="color: #1a0066;">Invoice</h4>
+        
+        </div>
 
+        <table class="table table-borderless mb-1 w-auto">
+         <tbody>
+          <tr>
+            <th class="text-start pe-2" style="width: 120px;">Invoice No:</th>
+            <td class="ps-1"><%= @invoice.invoice_number %></td>
+          </tr>
+          <tr>
+            <th class="text-start pe-2" style="width: 120px;">Issue Date:</th>
+            <td class="ps-1"><%= @invoice.issued_at.strftime("%d %b %Y") %></td>
+          </tr>
+          <tr>
+            <th class="text-start pe-2" style="width: 120px;">Due Date:</th>
+            <td class="ps-1"><%= @invoice.due_date.strftime("%d %b %Y") %></td>
+          </tr>
+         </tbody>
+        </table> <hr>
+
+       <div class="mb-3 d-flex gap-3">
+        <div class="w-50 p-3 rounded" style="background-color: #e6f2ff;">
+          <h6 class="fw-bold" style="color: #003366;">Billed By</h6>
+          <p class="lh-lg">
+            123 Main St<br>
+            City, 
+            Country<br>
+            email@example.com
+          </p>
+        </div>
+
+        <div class="w-50 p-3 rounded" style="background-color: #e6f2ff;">
+          <h6 class="fw-bold" style="color: #003366;">Billed To:</h6>
+          <p class="lh-lg">
+           <%= @invoice.issued_to&.name %><br>
+           <%= @invoice.issued_to&.address %><br>
+           <%= @invoice.issued_to&.city %><br>
+           <%= @invoice.issued_to&.zipcode %><br>
+          </p>
+        </div>
+       </div>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr class="text-center">
+              <th>Item</th>
+              <th>GST</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>CGST</th>
+              <th>SGST</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @invoice_items.each do |item| %>
+              <tr class="text-center">
+                <td><%= item.item %></td>
+                <td><%= item.gst %>%</td>
+                <td><%= item.quantity %></td>
+                <td><%= item.unit_price %></td>
+                <td><%= item.cgst %></td>
+                <td><%= item.sgst %></td>
+                <td><%= item.total %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div class="text-end mt-4" style="text-align: right; margin-right: 40px;">
+          <h6 class="fw-bold">Total: <span class="ms-5"> <%= @invoice&.invoice_items&.sum(:total) %></h6>
+        </div>
+
+      

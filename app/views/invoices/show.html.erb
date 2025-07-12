@@ -66,7 +66,7 @@
             <% @invoice_items.each do |item| %>
               <tr class="text-center">
                 <td><%= item.item %></td>
-                <td><%= item.gst %></td>
+                <td><%= item.gst %>%</td>
                 <td><%= item.quantity %></td>
                 <td><%= item.unit_price %></td>
                 <td><%= item.cgst %></td>
@@ -77,8 +77,8 @@
           </tbody>
         </table>
 
-        <div class="text-end mt-4">
-          <h6>Total: <%= number_to_currency(@invoice.amount) %></h6>
+        <div class="text-end mt-4" style="text-align: right; margin-right: 40px;">
+          <h6 class="fw-bold">Total: <span class="ms-5"> <%= @invoice&.invoice_items&.sum(:total) %></h6>
         </div>
 
         <div class="text-end mt-3">

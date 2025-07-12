@@ -28,17 +28,6 @@ class InvoicesController < ApplicationController
     @users = User.all
     @services = Service.all
     @invoice_items = @invoice.invoice_items
-
-     respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "invoice_#{@invoice.id}",
-               template: "invoices/show.pdf",
-               layout: "pdf",
-               disposition: "attachment",
-               formats: [ :html ]
-      end
-    end
   end
 
   def new
@@ -80,6 +69,25 @@ class InvoicesController < ApplicationController
     @invoice.destroy
     redirect_to invoices_path, notice: "Invoice was successfully deleted."
   end
+
+  def download
+    @invoice = Invoice.find(params[:id])
+    @court_cases = CourtCase.all
+    @users = User.all
+    @services = Service.all
+    @invoice_items = @invoice.invoice_items
+
+    respond_to do |format|
+     format.html { head :not_acceptable }
+     format.pdf do
+      render pdf: "invoice_#{@invoice.id}",
+             template: "invoices/download",
+             formats: [:html],
+             disposition: "inline" 
+    end
+  end
+end
+
 
   def get_issued_user
     court_case = CourtCase.find_by(id: params[:case_id])
