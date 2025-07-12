@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   resources :services
   resources :invoices do
     get :get_issued_user, on: :collection
+    member do
+     get :download, defaults: { format: 'pdf' }
+    end
   end
 
   get "/profile", to: "users#show_current", as: :profile
