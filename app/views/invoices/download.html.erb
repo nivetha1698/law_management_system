@@ -1,78 +1,113 @@
-<h3 class="mb-2 fw-bold" style="color: #1a0066; margin-left: 5px;">Invoice</h3>
-  <table style="border-collapse: separate; border-spacing: 0 15px; font-size: 14px;">
+<div style="font-size: 14px; font-family: Arial, sans-serif;">
+  <!-- Invoice Title -->
+  <h3 class="mb-2 fw-bold" style="color: #1a0066; margin-left: 5px;">Invoice</h3>
+
+  <!-- Invoice Metadata -->
+  <table style="border-collapse: separate; border-spacing: 0 15px;">
     <tbody>
       <tr>
-        <th>Invoice No:</th>
+        <th>Invoice No</th>
         <td style="padding-left: 1rem;"><%= @invoice.invoice_number %></td>
       </tr>
       <tr>
-        <th>Issue Date:</th>
+        <th>Issue Date</th>
         <td style="padding-left: 1rem;"><%= @invoice.issued_at.strftime("%d %b %Y") %></td>
       </tr>
       <tr>
-        <th style="padding-right: 0.8rem;">Due Date:</th>
+        <th style="padding-right: 0.8rem;">Due Date</th>
         <td style="padding-left: 1rem;"><%= @invoice.due_date.strftime("%d %b %Y") %></td>
       </tr>
     </tbody>
-  </table> <hr>
+  </table>
+  <hr>
 
- <div style="margin-bottom: 1rem; display: table; width: 100%; table-layout: fixed;">
-  <!-- Left box -->
-  <div style="display: table-cell; width: 48%; padding: 1rem; border-radius: 0.5rem; background-color: #e6f2ff; vertical-align: top;">
-    <h4 style="font-weight: bold; color: #003366;">Billed By</h4>
-    <p style="line-height: 1.6;">
-      123 Main St<br>
-      City, Country<br>
-      email@example.com
-    </p>
+  <!-- Billed By and Billed To -->
+  <div style="margin-bottom: 1rem; display: table; width: 100%; table-layout: fixed;">
+    <!-- Left box -->
+    <div style="display: table-cell; width: 48%; padding: 1rem; border-radius: 0.5rem; background-color: #e6f2ff; vertical-align: top;">
+      <h4 style="font-weight: bold; color: #003366;">Billed By</h4>
+      <p style="line-height: 2;">
+        123 Main St<br>
+        City, Country<br>
+        email@example.com
+      </p>
+    </div>
+
+    <!-- Spacer -->
+    <div style="display: table-cell; width: 4%;"></div>
+
+    <!-- Right box -->
+    <div style="display: table-cell; width: 48%; padding: 1rem; border-radius: 0.5rem; background-color: #e6f2ff; vertical-align: top;">
+      <h4 style="font-weight: bold; color: #003366;">Billed To:</h4>
+      <p style="line-height: 2;">
+        <%= @invoice.issued_to&.name %><br>
+        <%= @invoice.issued_to&.address %><br>
+        <%= @invoice.issued_to&.city %><br>
+        <%= @invoice.issued_to&.zipcode %><br>
+      </p>
+    </div>
   </div>
 
-  <!-- Spacer column -->
-  <div style="display: table-cell; width: 4%;"></div>
-
-  <!-- Right box -->
-  <div style="display: table-cell; width: 48%; padding: 1rem; border-radius: 0.5rem; background-color: #e6f2ff; vertical-align: top;">
-    <h4 style="font-weight: bold; color: #003366;">Billed To:</h4>
-    <p style="line-height: 1.6;">
-      <%= @invoice.issued_to&.name %><br>
-      <%= @invoice.issued_to&.address %><br>
-      <%= @invoice.issued_to&.city %><br>
-      <%= @invoice.issued_to&.zipcode %><br>
-    </p>
-  </div>
-</div>
-<table style="width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 14px;">
-  <thead>
-    <tr style="text-align: center; background-color: #f0f0f0;">
-      <th style="border: 1px solid #000; padding: 8px;">Item</th>
-      <th style="border: 1px solid #000; padding: 8px;">GST</th>
-      <th style="border: 1px solid #000; padding: 8px;">Quantity</th>
-      <th style="border: 1px solid #000; padding: 8px;">Unit Price</th>
-      <th style="border: 1px solid #000; padding: 8px;">CGST</th>
-      <th style="border: 1px solid #000; padding: 8px;">SGST</th>
-      <th style="border: 1px solid #000; padding: 8px;">Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @invoice_items.each do |item| %>
-      <tr style="text-align: center;">
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.item %></td>
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.gst %>%</td>
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.quantity %></td>
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.unit_price %></td>
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.cgst %></td>
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.sgst %></td>
-        <td style="border: 1px solid #000; padding: 8px;"><%= item.total %></td>
+  <!-- Invoice Items Table -->
+  <table style="width: 100%; border-collapse: collapse; margin-top: 1.5rem;">
+    <thead>
+      <tr style="text-align: center; background-color: #b3d9ff;">
+        <th style="border: 1px solid #000; padding: 8px;">Item</th>
+        <th style="border: 1px solid #000; padding: 8px;">GST</th>
+        <th style="border: 1px solid #000; padding: 8px;">Quantity</th>
+        <th style="border: 1px solid #000; padding: 8px;">Unit Price</th>
+        <th style="border: 1px solid #000; padding: 8px;">CGST</th>
+        <th style="border: 1px solid #000; padding: 8px;">SGST</th>
+        <th style="border: 1px solid #000; padding: 8px;">Total</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @invoice_items.each do |item| %>
+        <tr style="text-align: center;">
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.item %></td>
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.gst %>%</td>
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.quantity %></td>
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.unit_price %></td>
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.cgst %></td>
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.sgst %></td>
+          <td style="border: 1px solid #000; padding: 8px;"><%= item.total %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<div style="text-align: right; margin-top: 1.5rem; margin-right: 40px;">
-  <h4 style="font-weight: bold;">
-    Total:
-    <span style="margin-left: 3rem;"><%= @invoice&.invoice_items&.sum(:total) %></span>
-  </h4>
+  <!-- Total Amount -->
+  <div style="text-align: right; margin-top: 1.5rem; margin-right: 40px;">
+    <h4 style="font-weight: bold;">
+      Total:
+      <span style="margin-left: 3rem;"><%= @invoice&.invoice_items&.sum(:total) %></span>
+    </h4>
+  </div>
+
+  <!-- Bank Details -->
+  <div style="margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; background-color: #e6f2ff; width: 50%;">
+    <h4 style="font-weight: bold; color: #003366; margin-bottom: 1rem;">Bank Details</h4>
+    <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+      <tr>
+        <td style="font-weight: bold; color: black;">Account Number</td>
+        <td>000035363788999</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; color: black;">IFSC</td>
+        <td>XAW000125</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; color: black;">Account Type</td>
+        <td>Current</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; color: black;">Bank</td>
+        <td>ABC BANK</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; color: black;">Swift Code</td>
+        <td>ABC000001</td>
+      </tr>
+    </table>
+  </div>
 </div>
-
-     
