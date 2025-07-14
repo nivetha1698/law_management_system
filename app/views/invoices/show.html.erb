@@ -81,8 +81,32 @@
           <h6 class="fw-bold">Total: <span class="ms-5"> <%= @invoice&.invoice_items&.sum(:total) %></h6>
         </div>
 
-        <div class="text-end mt-3">
-          <%= link_to 'Download PDF', invoice_path(@invoice, format: :pdf), class: 'btn btn-primary' %>
+        <div class="w-50 p-3 rounded mt-3" style="background-color: #e6f2ff;">
+          <h6 class="fw-bold" style="color: #003366;">Bank Details</h6>
+          <table style="font-size: 14px; border-collapse: separate; border-spacing: 0 10px;">
+           <tbody>
+            <tr>
+             <td class="fw-bold text-dark">Account Number</td>
+             <td>000035363788999</td>
+            </tr>
+            <tr>
+             <td class="fw-bold text-dark">IFSC</td>
+             <td>XAW000125</td>
+            </tr>
+            <tr>
+             <td class="fw-bold text-dark">Account Type</td>
+             <td>Current</td>
+            </tr>
+            <tr>
+             <td class="fw-bold text-dark">Bank</td>
+             <td>ABC BANK</td>
+            </tr>
+            <tr>
+             <td class="fw-bold text-dark">Swift Code</td>
+             <td>ABC000001</td>
+            </tr>
+           </tbody>
+          </table>
         </div>
       </div>
     </div>
