@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :invoices do
     get :get_issued_user, on: :collection
     member do
-     get :download, defaults: { format: 'pdf' }
+     get :download, defaults: { format: "pdf" }
     end
   end
 
