@@ -3,6 +3,6 @@ class DashboardsController < ApplicationController
    @users_count = User.count
    @clients_count = Client.count
    @lawyers_count = Lawyer.count
-   @judges_count = Judge.count
+   @total_cases = CourtCase.count
  end
 end
