@@ -82,8 +82,8 @@ class InvoicesController < ApplicationController
      format.pdf do
       render pdf: "invoice_#{@invoice.id}",
              template: "invoices/download",
-             formats: [:html],
-             disposition: "inline" 
+             formats: [ :html ],
+             disposition: "inline"
     end
   end
 end

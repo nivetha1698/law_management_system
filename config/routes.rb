@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :invoices do
     get :get_issued_user, on: :collection
     member do
-     get :download, defaults: { format: 'pdf' }
+     get :download, defaults: { format: "pdf" }
     end
   end
 
@@ -39,4 +39,9 @@ Rails.application.routes.draw do
   get "invoices/new_item_field", to: "invoices#new_item_field"
   get "/services/:id/price", to: "services#price"
   root "dashboards#index"
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
 end

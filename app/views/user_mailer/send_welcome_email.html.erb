@@ -1,12 +1,32 @@
-<h3>Welcome to Law Management System, <%= @user.name %>!</h3>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome Email</title>
+  </head>
+  <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
 
-<p>Dear <%= @user.name %>,</p>
+    <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 8px; border: 1px solid #ddd;">
+      <h3 style="color: #0056b3;">Welcome to Law Management System, <%= @user.name %>!</h3>
 
-<p>Your account has been created successfully as a <%= @user.class.name.capitalize %>.</p>
+      <p>Thank you for joining <%= @user.name %>,</p>
 
-<p>You can now log in using your email: <%= @user.email %>.</p>
+      <p>Your account has been created successfully as a <strong><%= @user.class.name.capitalize %></strong>.</p>
 
-<p>Please visit <a href="<%= root_url %>">our website</a> to get started.</p>
+      <p>You can now log in using your email: <strong><%= @user.email %></strong>.</p>
 
-<p>Best regards,<br>
-Law Management Team</p>
+      <p>Please visit 
+        <a href="<%= new_user_session_url %>" style="color: #007bff; text-decoration: none;">
+          Login Page
+        </a> 
+        to get started.
+      </p>
+
+      <p style="margin-top: 30px;">
+        Best regards,<br>
+        <strong>Law Management Team</strong>
+      </p>
+    </div>
+    
+  </body>
+</html>

@@ -1,13 +1,16 @@
 <main id="main" class="main">
- <%= render 'shared/flash' %>
+  <%= render 'shared/flash' %>
+
   <section class="section dashboard">
     <div class="row">
       <div class="col-lg-12">
+
+        <!-- Row 1: Existing Cards -->
         <div class="row">
-          <div class="col-xxl-4 col-md-4">
-            <div class="card info-card sales-card">
+          <div class="col-xxl-4 col-md-3">
+            <div class="card info-card sales-card rounded-4">
               <div class="card-body">
-                <h5 class="card-title">Clients</h5>
+                <h5 class="card-title fw-semibold">Active Clients</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-person-badge"></i>
@@ -20,10 +23,10 @@
             </div>
           </div>
 
-          <div class="col-xxl-4 col-md-4">
-            <div class="card info-card revenue-card">
+          <div class="col-xxl-4 col-md-3">
+            <div class="card info-card revenue-card rounded-4">
               <div class="card-body">
-                <h5 class="card-title">Team Members</h5>
+                <h5 class="card-title fw-semibold">Team Members</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -36,10 +39,26 @@
             </div>
           </div>
 
-          <div class="col-xxl-4 col-md-4">
-            <div class="card info-card revenue-card">
+          <div class="col-xxl-4 col-md-3">
+            <div class="card info-card revenue-card rounded-4">
               <div class="card-body">
-                <h5 class="card-title">Judges</h5>
+                <h5 class="card-title fw-semibold">Total Cases</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-gear"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><%= @total_cases %></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-md-3">
+            <div class="card info-card revenue-card rounded-4">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold">Invite a friend</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-person-gear"></i>
@@ -53,19 +72,77 @@
           </div>
         </div>
 
+        <!-- Row 2: More Cards -->
         <div class="row mt-1">
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card customers-card">
+          <div class="col-xxl-4 col-md-12">
+            <div class="card info-card customers-card rounded-4">
               <div class="card-body">
-                <h5 class="card-title">Total Users</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-people"></i>
+                <h5 class="card-title fw-semibold">Add Item</h5>
+
+                <div class="row text-center g-2">
+                  <div class="col-3">
+                   <a href="/tasks/new" class="text-decoration-none text-dark">
+                    <div class="click-box p-3 rounded text-center rounded-4 shadow" tabindex="0">
+                      <i class="bi bi-list-task fs-5 mb-1 d-block"></i>
+                      <small class="fw-semibold">Task</small>
+                    </div>
+                   </a>
                   </div>
-                  <div class="ps-3">
-                    <h6><%= @users_count %></h6>
+
+                  <div class="col-3">
+                   <a href="/court_cases/new" class="text-decoration-none text-dark">
+                    <div class="click-box p-3 rounded text-center rounded-4 shadow" tabindex="0">
+                      <i class="bi bi-briefcase fs-5 mb-1 d-block"></i>
+                      <small class="fw-semibold">Case</small>
+                    </div>
+                   </a>
+                  </div>
+
+                  <div class="col-3">
+                   <a href="/clients/new" class="text-decoration-none text-dark">
+                    <div class="click-box p-3 rounded text-center rounded-4 shadow" tabindex="0">
+                      <i class="bi bi-person-plus fs-5 mb-1 d-block"></i>
+                      <small class="fw-semibold">Client</small>
+                    </div>
+                   </a>
+                  </div>
+
+                  <div class="col-3">
+                   <a href="/invoices/new" class="text-decoration-none text-dark">
+                    <div class="click-box p-3 rounded text-center rounded-4 shadow" tabindex="0">
+                      <i class="bi bi-receipt fs-5 mb-1 d-block"></i>
+                      <small class="fw-semibold">Invoice</small>
+                    </div>
+                   </a>
                   </div>
                 </div>
+                
+              </div>
+            </div>
+          </div>
+
+        <!-- Row 3: Billing & Documents -->
+        <div class="row mt-1">
+          <!-- Billing Summary -->
+          <div class="col-md-6">
+            <div class="card info-card rounded-4">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold">Billing Summary</h5>
+                <p>Total Invoiced: <strong>$<%= @total_invoiced %></strong></p>
+                <p>Paid: <strong class="text-success">$<%= @total_paid %></strong></p>
+                <p>Pending: <strong class="text-danger">$<%= @total_pending %></strong></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Documents -->
+          <div class="col-md-6">
+            <div class="card info-card rounded-4">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold">Today's Event</h5>
+                <ul class="list-group list-group-flush">
+                 
+                </ul>
               </div>
             </div>
           </div>
