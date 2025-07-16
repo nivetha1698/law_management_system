@@ -39,4 +39,9 @@ Rails.application.routes.draw do
   get "invoices/new_item_field", to: "invoices#new_item_field"
   get "/services/:id/price", to: "services#price"
   root "dashboards#index"
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
 end

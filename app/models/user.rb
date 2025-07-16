@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   #--------------------------------------Callbacks-----------------------------------------------------
 
-  after_create_commit :send_welcome_email
+  after_commit :send_welcome_email, on: :create
 
   #------------------------------------Methods------------------------------------------------------
 

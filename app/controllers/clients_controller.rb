@@ -28,7 +28,6 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      @client.add_role("client")
       redirect_to clients_path, notice: "Client was successfully created."
     else
       render :new

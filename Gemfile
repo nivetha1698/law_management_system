@@ -76,3 +76,5 @@ gem "wicked_pdf", "~> 2.8.2"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
 gem "pg_search", "~> 2.3", ">= 2.3.6"
+
+gem 'letter_opener_web', '~> 3.0'
