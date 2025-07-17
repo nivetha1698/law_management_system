@@ -1,25 +1,49 @@
-<h2>Change your password</h2>
+<div class="container-fluid p-0">
+  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4" style="background-image: url('<%= asset_path('background.png') %>'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+          <div class="card mb-3">
+            <div class="card-body">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+              <div class="pt-4 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Reset Your Password</h5>
+              </div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "row g-3 needs-validation", novalidate: true }) do |f| %>
+                <%= render "devise/shared/error_messages", resource: resource %>
+                <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+                <div class="col-12">
+                  <label for="newPassword" class="form-label">New Password</label>
+                  <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %>
+                  <%= f.password_field :password, class: "form-control", id: "newPassword", required: true, autofocus: true, autocomplete: "new-password" %>
+                  <div class="invalid-feedback">Please enter a valid password.</div>
+                </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+                <div class="col-12">
+                  <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                  <%= f.password_field :password_confirmation, class: "form-control", id: "confirmPassword", required: true, autocomplete: "new-password" %>
+                  <div class="invalid-feedback">Please confirm your password.</div>
+                </div>
 
-<%= render "devise/shared/links" %>
+                <div class="col-12">
+                  <button class="btn btn-primary w-100" type="submit">Change My Password</button>
+                </div>
+
+                <div class="col-12 text-center">
+                  <p class="small mt-3 mb-0">
+                    <a href="<%= new_user_session_path %>">Back to Login</a>
+                  </p>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
