@@ -15,11 +15,10 @@
 
       <p>You can now log in using your email: <strong><%= @user.email %></strong>.</p>
 
-      <p>Please visit 
-        <a href="<%= new_user_session_url %>" style="color: #007bff; text-decoration: none;">
-          Login Page
-        </a> 
-        to get started.
+      <p>To get started,
+        <a href="<%= new_user_password_url %>" style="color: #007bff; text-decoration: none;">
+          click here to request a password reset
+        </a> please check your inbox for a separate email with a secure link to set your password.
       </p>
 
       <p style="margin-top: 30px;">
