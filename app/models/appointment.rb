@@ -13,4 +13,8 @@ class Appointment < ApplicationRecord
   belongs_to :lawyer, optional: true
 
   accepts_nested_attributes_for :note, allow_destroy: true
+
+  #----------------------------------------Validations----------------------------------------------
+
+  validates :date, :time, :case_id, presence: true
 end
