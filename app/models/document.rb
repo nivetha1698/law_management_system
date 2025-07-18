@@ -1,5 +1,5 @@
 class Document < ApplicationRecord
-  #-------------------------------------------Associations-------------------------------------------
+    #-------------------------------------------Associations-------------------------------------------
     belongs_to :documentable, polymorphic: true
     belongs_to :uploaded_by, class_name: "User"
     has_many_attached :files

@@ -70,7 +70,7 @@ class CourtCasesController < ApplicationController
       @judges = Judge.all
       @lawyers = Lawyer.all
       @clients = Client.all
-      @categories = Category.all 
+      @categories = Category.all
       render :edit
     end
   end
@@ -90,7 +90,7 @@ class CourtCasesController < ApplicationController
 
   def court_case_params
      params.require(:court_case).permit(:title, :description, :status, :case_number, :priority, :workflow_status, :client_id, :category_id,
-                                  :first_hearing_date, :next_hearing_date, :court_no, :judge_id, lawyer_ids: [], documents_attributes: [:id, :_destroy, :uploaded_by_id, files: []])
+                                  :first_hearing_date, :next_hearing_date, :court_no, :judge_id, lawyer_ids: [], documents_attributes: [ :id, :_destroy, :uploaded_by_id, files: [] ])
   end
 
   def set_court_case
