@@ -2,30 +2,23 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Welcome Email</title>
+    <title>Set Your Password</title>
   </head>
-  <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
-
+  <body style="font-family: sans-serif; background-color: #f8f9fa; padding: 20px;">
     <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 8px; border: 1px solid #ddd;">
-      <h3 style="color: #0056b3;">Welcome to Law Management System, <%= @user.name %>!</h3>
+      <h2 style="color: #0056b3;">Welcome to Law Management System!</h2>
 
-      <p>Thank you for joining <%= @user.name %>,</p>
+      <p>Hi <strong><%= @user.email %></strong>,</p>
 
-      <p>Your account has been created successfully as a <strong><%= @user.class.name.capitalize %></strong>.</p>
+      <p>An account has been created for you by the Law Management System administrator.</p>
 
-      <p>You can now log in using your email: <strong><%= @user.email %></strong>.</p>
+      <p>Please click the button below to set your password and access your account:</p>
 
-      <p>To get started,
-        <a href="<%= new_user_password_url %>" style="color: #007bff; text-decoration: none;">
-          click here to request a password reset
-        </a> please check your inbox for a separate email with a secure link to set your password.
+      <p style="text-align: center; margin: 30px 0;">
+        <a href="<%= edit_user_password_url(reset_password_token: @token) %>" style="background-color: #007bff; color: #fff; padding: 12px 20px; text-decoration: none; border-radius: 5px;">Set My Password</a>
       </p>
 
-      <p style="margin-top: 30px;">
-        Best regards,<br>
-        <strong>Law Management Team</strong>
-      </p>
+      <p>Best regards,<br>The Law Management Team</p>
     </div>
-    
   </body>
 </html>
