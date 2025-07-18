@@ -17,7 +17,7 @@ class JudgesController < ApplicationController
       @judge.add_role("judge")
       redirect_to judges_path, notice: "Judge was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

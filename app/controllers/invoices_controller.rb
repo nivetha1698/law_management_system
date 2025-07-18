@@ -45,7 +45,8 @@ class InvoicesController < ApplicationController
     else
       @court_cases = CourtCase.all
       @users = User.all
-      render :new
+      @services = Service.all
+      render :new, status: :unprocessable_entity
     end
   end
 

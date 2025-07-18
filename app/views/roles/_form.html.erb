@@ -2,9 +2,21 @@
   <div class="row">
     <div class="col-lg-12">
         <%= form_with model: @role, local: true, html: { class: "row g-3" } do |f| %>
+          <% if @role.errors.any? %>
+            <div class="col-9">
+              <div class="alert alert-danger">
+                <h5><%= pluralize(@role.errors.count, "error") %> prevented this form from saving:</h5>
+                <ul class="mb-0">
+                  <% @role.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
           <div class="col-md-6 mb-3">
             <%= f.label :Name, class: "form-label fw-bold" %>
-            <%= f.text_field :name, class: "form-control", required: true %>
+            <%= f.text_field :name, class: "form-control" %>
           </div>
            
           <div class="text-center">
