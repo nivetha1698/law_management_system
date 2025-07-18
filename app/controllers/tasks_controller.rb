@@ -39,7 +39,7 @@ class TasksController < ApplicationController
     else
       @users = User.all
       @court_cases = CourtCase.all
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

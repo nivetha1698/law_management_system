@@ -38,10 +38,9 @@ class LawyersController < ApplicationController
   def create
     @lawyer = Lawyer.new(lawyer_params)
     if @lawyer.save
-      @lawyer.add_role("lawyer")
       redirect_to lawyers_path, notice: "Lawyer was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

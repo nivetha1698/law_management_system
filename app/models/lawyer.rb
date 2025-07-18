@@ -14,5 +14,12 @@ class Lawyer < User
   has_many :court_cases, through: :case_lawyers
   has_many :case_lawyers, dependent: :destroy
   belongs_to :category
+  #-------------------------------------------------Callbacks---------------------------------------------
+  after_create :assign_lawyer_role
   #--------------------------------------------------Methods----------------------------------------------
+   private
+
+  def assign_client_role
+    add_role(:lawyer)
+  end
 end

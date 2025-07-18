@@ -14,7 +14,7 @@ class RolesController < ApplicationController
     if @role.save
       redirect_to roles_path, notice: "Role was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -2,13 +2,25 @@
   <div class="row">
     <div class="col-lg-12">
         <%= form_with model: @judge, local: true, html: { class: "row g-3" } do |f| %>
+          <% if @judge.errors.any? %>
+            <div class="col-9">
+              <div class="alert alert-danger">
+                <h5><%= pluralize(@judge.errors.count, "error") %> prevented this form from saving:</h5>
+                <ul class="mb-0">
+                  <% @judge.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
           <div class="col-md-6 mb-3">
             <%= f.label :Name, class: "form-label fw-bold" %>
-            <%= f.text_field :name, class: "form-control", required: true, disabled: action_name == "show" %>
+            <%= f.text_field :name, class: "form-control", disabled: action_name == "show" %>
           </div>
           <div class="col-md-6 mb-3">
             <%= f.label :email, class: "form-label fw-bold" %>
-           <%= f.email_field :email, class: "form-control", required: true, disabled: action_name == "show" %>
+           <%= f.email_field :email, class: "form-control", disabled: action_name == "show" %>
           </div>
           <div class="col-md-6 mb-3">
             <%= f.label :gender, class: "form-label fw-bold" %>
@@ -16,11 +28,11 @@
           </div>
           <div class="col-md-6 mb-3">
             <%= f.label :court_name, class: "form-label fw-bold" %>
-            <%= f.text_field :court_name, class: "form-control", required: true, disabled: action_name == "show"%>
+            <%= f.text_field :court_name, class: "form-control", disabled: action_name == "show"%>
           </div>
           <div class="col-md-6 mb-3">
             <%= f.label :password, class: "form-label fw-bold" %>
-            <%= f.password_field :password, class: "form-control", required: true, disabled: action_name == "show" %>
+            <%= f.password_field :password, class: "form-control", disabled: action_name == "show" %>
           </div>
           <div class="text-center">
             <%= f.submit "Submit", class: "btn btn-primary" %>

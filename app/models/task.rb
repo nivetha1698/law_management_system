@@ -13,6 +13,10 @@ class Task < ApplicationRecord
 
     delegate :name, to: :assignee, allow_nil: true
 
+    #-------------------------------------Validations---------------------------------------------------
+
+    validates :name, :case_id, :status, :due_date, presence: true
+
   #-----------------------------------------Methods----------------------------------------------------------
   def self.ransackable_attributes(auth_object = nil)
     %w[title assignee_name]

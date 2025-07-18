@@ -2,13 +2,25 @@
   <div class="row">
     <div class="col-lg-12">
         <%= form_with model: @lawyer, local: true, html: { class: "row g-3" } do |f| %>
+            <% if @lawyer.errors.any? %>
+              <div class="col-9">
+                <div class="alert alert-danger">
+                  <h5><%= pluralize(@lawyer.errors.count, "error") %> prevented this form from saving:</h5>
+                  <ul class="mb-0">
+                    <% @lawyer.errors.full_messages.each do |message| %>
+                     <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            <% end %>
             <div class="col-md-6 mb-3">
               <%= f.label :name, class: "form-label fw-bold" %>
-              <%= f.text_field :name, class: "form-control", disabled: action_name == "show", required: true %>
+              <%= f.text_field :name, class: "form-control", disabled: action_name == "show" %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :email, class: "form-label fw-bold" %>
-              <%= f.email_field :email, class: "form-control", disabled: action_name == "show", required: true %>
+              <%= f.email_field :email, class: "form-control", disabled: action_name == "show" %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :gender, class: "form-label fw-bold" %>
@@ -16,15 +28,15 @@
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :phone, class: "form-label fw-bold" %>
-              <%= f.text_field :phone, class: "form-control", disabled: action_name == "show", required: true %>
+              <%= f.text_field :phone, class: "form-control", disabled: action_name == "show" %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :password, class: "form-label fw-bold" %>
-              <%= f.password_field :password, class: "form-control", disabled: action_name == "show", required: true %>
+              <%= f.password_field :password, class: "form-control", disabled: action_name == "show" %>
             </div>
             <div class="col-md-6 mb-3">
               <%= f.label :address, class: "form-label fw-bold" %>
-              <%= f.text_field :address, class: "form-control", disabled: action_name == "show", required: true %>
+              <%= f.text_field :address, class: "form-control", disabled: action_name == "show" %>
             </div>
             <div class="col-md-4 mb-3">
               <%= f.label :category, class: "form-label fw-bold" %>

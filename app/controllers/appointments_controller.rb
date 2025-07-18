@@ -36,7 +36,7 @@ class AppointmentsController < ApplicationController
       redirect_to appointments_path, notice: "Appointment was successfully created."
     else
       @clients = Client.all
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
