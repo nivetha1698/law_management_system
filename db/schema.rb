@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_18_071252) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_18_091044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -147,7 +147,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_18_071252) do
   create_table "documents", force: :cascade do |t|
     t.bigint "uploaded_by_id"
     t.string "title"
-    t.text "file_path", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "documentable_type"
