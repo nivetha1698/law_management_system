@@ -66,7 +66,6 @@ class CourtCasesController < ApplicationController
     if @court_case.update(court_case_params)
       redirect_to court_cases_path, notice: "Court Case was successfully updated."
     else
-      p @court_case.errors.full_messages
       @judges = Judge.all
       @lawyers = Lawyer.all
       @clients = Client.all
