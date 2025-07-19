@@ -6,6 +6,7 @@ class Client < User
   #-------------------------------------Associations---------------------------------------------------------
   has_many :court_cases
   has_many :issued_invoices, class_name: "Invoice", foreign_key: "issued_to_id"
+  has_many :documents, as: :documentable, dependent: :destroy
 
   scope :with_open_cases, -> { joins(:court_cases).where(court_cases: { status: "open" }).where(active: true).distinct }
   #-------------------------------------Callbacks---------------------------------------------------------------

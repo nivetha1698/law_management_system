@@ -36,6 +36,7 @@ class CourtCasesController < ApplicationController
      @judges = Judge.all
      @lawyers = Lawyer.all
      @clients = Client.all
+     @court_case.documents.build
   end
 
   def create
@@ -58,12 +59,17 @@ class CourtCasesController < ApplicationController
     @judges = Judge.all
     @lawyers = Lawyer.all
     @clients = Client.all
+    @court_case.documents.build
   end
 
   def update
     if @court_case.update(court_case_params)
       redirect_to court_cases_path, notice: "Court Case was successfully updated."
     else
+      @judges = Judge.all
+      @lawyers = Lawyer.all
+      @clients = Client.all
+      @categories = Category.all
       render :edit
     end
   end
@@ -83,7 +89,7 @@ class CourtCasesController < ApplicationController
 
   def court_case_params
      params.require(:court_case).permit(:title, :description, :status, :case_number, :priority, :workflow_status, :client_id, :category_id,
-                                  :first_hearing_date, :next_hearing_date, :court_no, :judge_id, lawyer_ids: [])
+                                  :first_hearing_date, :next_hearing_date, :court_no, :judge_id, lawyer_ids: [], documents_attributes: [ :id, :_destroy, :uploaded_by_id, files: [] ])
   end
 
   def set_court_case

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_04_104052) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_18_091044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -145,13 +145,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_104052) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.bigint "case_id"
     t.bigint "uploaded_by_id"
     t.string "title"
-    t.text "file_path", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["case_id"], name: "index_documents_on_case_id"
+    t.string "documentable_type"
+    t.bigint "documentable_id"
+    t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable"
     t.index ["uploaded_by_id"], name: "index_documents_on_uploaded_by_id"
   end
 
@@ -331,7 +331,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_104052) do
   add_foreign_key "checklists", "cases"
   add_foreign_key "document_versions", "documents"
   add_foreign_key "document_versions", "users", column: "uploaded_by_id"
-  add_foreign_key "documents", "cases"
   add_foreign_key "documents", "users", column: "uploaded_by_id"
   add_foreign_key "hearings", "cases"
   add_foreign_key "invoice_items", "invoices"

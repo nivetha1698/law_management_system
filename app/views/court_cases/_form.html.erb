@@ -1,7 +1,7 @@
 <section class="section">
   <div class="row">
     <div class="col-lg-12">
-        <%= form_with model: @court_case, local: true, html: { class: "row g-3" } do |f| %>
+        <%= form_with model: @court_case, local: true, html: { class: "row g-3", multipart: true } do |f| %>
            <% if @court_case.errors.any? %>
              <div class="col-12">
               <div class="alert alert-danger">
@@ -70,6 +70,16 @@
               <%= f.label :lawyers, "Lawyers", class: "form-label fw-bold" %>
               <%= f.select :lawyer_ids, [["Select Lawyers", ""]] + Lawyer.all.map { |l| [l.name, l.id] }, {}, { multiple: true, class: "form-select" } %>
             </div>
+
+            <div class="col-md-6 mb-3">
+             <%= f.fields_for :documents do |doc_form| %>
+              <%= doc_form.label :files, "Upload Documents (PDF, Image, Video)", class: "form-label fw-bold" %>
+              <%= doc_form.file_field :files, multiple: true, class: "form-control", direct_upload: true %>
+             
+              <%= doc_form.hidden_field :uploaded_by_id, value: current_user.id %>
+             <% end %>
+            </div>
+            
             <% unless action_name == "show" %>
              <div class="text-center">
               <%= f.submit "Submit", class: "btn btn-primary" %>
