@@ -35,6 +35,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      attach_new_documents(@court_case)
       redirect_to tasks_path, notice: "Task was successfully created."
     else
       @users = User.all
@@ -53,6 +54,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      attach_new_documents(@court_case)
       redirect_to tasks_path, notice: "Task was successfully updated."
     else
       render :edit
@@ -75,5 +77,17 @@ class TasksController < ApplicationController
     attributes: [ "task_name", "case", "assigned_to", "due_date", "status" ],
     title: [ "Tasks" ]
    }
+  end
+
+  private
+
+  def attach_new_documents(record)
+   return unless params[:new_documents]
+
+   params[:new_documents].each do |file|
+    doc = record.documents.build(uploaded_by_id: params[:uploaded_by_id], title: file.original_filename)
+    doc.files.attach(file)
+    doc.save
+   end
   end
 end

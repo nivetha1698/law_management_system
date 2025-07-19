@@ -33,6 +33,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
     if @appointment.save
+      attach_new_documents(@court_case)
       redirect_to appointments_path, notice: "Appointment was successfully created."
     else
       @clients = Client.all
@@ -50,6 +51,7 @@ class AppointmentsController < ApplicationController
 
   def update
     if @appointment.update(appointment_params)
+      attach_new_documents(@court_case)
       redirect_to appointments_path, notice: "Appointment was successfully updated."
     else
       render :edit
@@ -73,5 +75,17 @@ class AppointmentsController < ApplicationController
     attributes: [ "no", "client_name", "case", "lawyer", "date", "time" ],
     title: [ "Appointments" ]
    }
+  end
+
+  private
+
+  def attach_new_documents(record)
+   return unless params[:new_documents]
+
+   params[:new_documents].each do |file|
+    doc = record.documents.build(uploaded_by_id: params[:uploaded_by_id], title: file.original_filename)
+    doc.files.attach(file)
+    doc.save
+   end
   end
 end

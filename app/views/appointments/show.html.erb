@@ -9,6 +9,35 @@
          <% end %>
         </h5>
           <%= render "appointments/form" %>
+        <% unless action_name == "show" %>
+        <div class="row mb-3">
+         <div class="col-md-3 fw-bold text-muted">Documents:</div>
+          <div class="col-md-9">
+           <% if @appointment.documents.any? %>
+            <ul style="list-style: none; padding-left: 0;">
+            <% @appointment.documents.each do |doc| %>
+             <% doc.files.each do |file| %>
+              <li>
+                <% if file.image? %>
+                 <%= image_tag file, width: 200, class: "mb-2" %><br>
+                <% elsif file.content_type.starts_with?("video") %>
+                 <video width="320" height="240" controls>
+                  <source src="<%= url_for(file) %>" type="<%= file.content_type %>">
+                     Your browser does not support the video tag.
+                 </video>
+                <% else %>
+                  <%= link_to file.filename.to_s, url_for(file), target: "_blank" %>
+                <% end %>
+              </li>
+             <% end %>
+            <% end %>
+            </ul>
+           <% else %>
+             <p>No documents uploaded.</p>
+           <% end %>
+         </div>
+       </div>
+       <% end %>
       </div>
     </div>
   </section>

@@ -10,6 +10,8 @@ class Task < ApplicationRecord
 
     belongs_to :court_case, foreign_key: "case_id", optional: true
     belongs_to :assignee, class_name: "User", foreign_key: "assigned_to"
+    has_many :documents, as: :documentable, dependent: :destroy
+    accepts_nested_attributes_for :documents, allow_destroy: true
 
     delegate :name, to: :assignee, allow_nil: true
 
