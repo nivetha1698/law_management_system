@@ -11,6 +11,8 @@ class Appointment < ApplicationRecord
   belongs_to :client
   belongs_to :court_case, class_name: "CourtCase", foreign_key: "case_id", optional: true
   belongs_to :lawyer, optional: true
+  has_many :documents, as: :documentable, dependent: :destroy
+  accepts_nested_attributes_for :documents, allow_destroy: true
 
   accepts_nested_attributes_for :note, allow_destroy: true
 

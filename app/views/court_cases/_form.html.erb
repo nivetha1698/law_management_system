@@ -71,21 +71,35 @@
               <%= f.select :lawyer_ids, [["Select Lawyers", ""]] + Lawyer.all.map { |l| [l.name, l.id] }, {}, { multiple: true, class: "form-select" } %>
             </div>
 
-            <div class="col-md-6 mb-3">
-             <%= f.fields_for :documents do |doc_form| %>
-              <%= doc_form.label :files, "Upload Documents (PDF, Image, Video)", class: "form-label fw-bold" %>
-              <%= doc_form.file_field :files, multiple: true, class: "form-control", direct_upload: true %>
-             
-              <%= doc_form.hidden_field :uploaded_by_id, value: current_user.id %>
-             <% end %>
+           <% if @court_case.documents.any? %>
+            <div class="col-md-12 mb-3">
+             <label class="form-label fw-bold">Uploaded Documents</label>
+             <ul>
+              <% @court_case.documents.each do |doc| %>
+                <% doc.files.each do |file| %>
+                 <li>
+                  <%= link_to file.filename.to_s, rails_blob_path(file, disposition: "attachment"), target: "_blank" %>
+                  (<%= file.content_type %>, <%= number_to_human_size(file.byte_size) %>)
+                 </li>
+                <% end %>
+              <% end %>
+             </ul>
             </div>
-            
-            <% unless action_name == "show" %>
-             <div class="text-center">
+           <% end %>
+
+          <!-- Upload New Files -->
+          <div class="col-md-6 mb-3">
+           <%= label_tag :new_documents, "Upload New Documents (PDF, Image, Video)", class: "form-label fw-bold" %>
+           <%= file_field_tag "new_documents[]", multiple: true, class: "form-control", direct_upload: true %>
+           <%= hidden_field_tag :uploaded_by_id, current_user.id %>
+          </div>
+
+          <% unless action_name == "show" %>
+            <div class="text-center">
               <%= f.submit "Submit", class: "btn btn-primary" %>
-             </div>
+            </div>
             <% end %>
-        <% end %>
+          <% end %>
     </div>
   </div>
 </section>

@@ -14,7 +14,7 @@ class CourtCasesController < ApplicationController
       @court_cases = @court_cases.where(client_id: params[:client])
     end
     @court_cases = @court_cases.where(priority: params[:priority]) if params[:priority].present?
-    @court_cases = @court_cases.order("next_hearing_date ASC NULLS LAST").page(params[:page]).per(5)
+    @court_cases = @court_cases.order("next_hearing_date DESC NULLS LAST").page(params[:page]).per(5)
 
     respond_to do |format|
       format.html
@@ -42,6 +42,7 @@ class CourtCasesController < ApplicationController
   def create
     @court_case = CourtCase.new(court_case_params)
     if @court_case.save
+      attach_new_documents(@court_case)
       redirect_to court_cases_path, notice: "Court Case was successfully created."
     else
       @clients = Client.all
@@ -64,6 +65,7 @@ class CourtCasesController < ApplicationController
 
   def update
     if @court_case.update(court_case_params)
+      attach_new_documents(@court_case)
       redirect_to court_cases_path, notice: "Court Case was successfully updated."
     else
       @judges = Judge.all
@@ -101,5 +103,17 @@ class CourtCasesController < ApplicationController
     attributes: [ "case_number", "title", "description", "status", "priority", "next_hearing_date" ],
     title: [ "Court Cases" ]
    }
+  end
+
+  private
+  
+  def attach_new_documents(record)
+   return unless params[:new_documents]
+
+   params[:new_documents].each do |file|
+    doc = record.documents.build(uploaded_by_id: params[:uploaded_by_id], title: file.original_filename)
+    doc.files.attach(file)
+    doc.save
+   end
   end
 end
